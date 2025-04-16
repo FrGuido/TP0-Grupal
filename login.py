@@ -1,6 +1,5 @@
 import main
 
-
 def login():
 
     #definir usuario admin
