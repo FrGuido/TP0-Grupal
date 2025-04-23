@@ -10,6 +10,7 @@ def login():
     usertype = ''
     count = 0
 
+    #verificacion login
     while True:
         user = input('Ingrese su DNI: ')
         if user == admin:
