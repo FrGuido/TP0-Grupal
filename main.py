@@ -8,6 +8,7 @@ profesores = [] #lista
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
 
 
+
 #esqueleto cursos
 curso = {
     'nombre':str(),
@@ -30,7 +31,6 @@ materia = {
 alumno = {
     'dni':int(),
     'nombre':str(),
-    'edad':int(),
     'apellido':str(),
     'fecha_nac':int(),
     'curso':int(),
