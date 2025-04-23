@@ -1,18 +1,23 @@
-import main
+import almacen_datos
 
-def login():
-
-    #definir usuario admin
+def login_users():
+    # Definir usuario admin
     admin = 'admin'
     adminpasww = 'admin'
 
-    #inicializo tipo de usuario a retornar y contador
+    # Inicializo tipo de usuario a retornar y contador
     usertype = ''
-    count = 0
-
-    #verificacion login
+    user = ''
+    
     while True:
-        user = input('Ingrese su DNI: ')
+        user = input('Ingrese su DNI: ').strip()
+        
+        # Validación de DNI
+        if len(user) != 8 or not user.isdigit():
+            print('Ha ingresado un DNI no válido, intente de nuevo\n')
+            continue
+
+        # Usuario administrador
         if user == admin:
             while True:
                 pasww = input('Ingrese su contraseña: ')
@@ -20,35 +25,39 @@ def login():
                     usertype = 'admin'
                     break
                 else:
-                    print('Intente de nuevo')
+                    print('Contraseña incorrecta. Intente de nuevo')
+            break
 
-        elif any(x ['dni'] == user for x in main.profesores):
-            while True:
-                count = count + 1
+        # Profesores
+        profesor = next((x for x in almacen_datos.profesores if x['dni'] == user), None)
+        if profesor:
+            for _ in range(3):
                 pasww = input('Ingrese su contraseña: ')
-                if any(x ['pasw'] == user for x in main.profesores):
+                if pasww == profesor['pasw']:
                     usertype = 'p'
                     break
-                elif count == 3:
-                    print('Ha hecho muchos intentos, intente desde 0')
-                    break
-        
-        elif any(x ['dni'] == user for x in main.alumnos):
-            while True:
-                count = count + 1
+                else:
+                    print('Contraseña incorrecta. Intente de nuevo')
+            else:
+                print('Ha hecho muchos intentos, intente desde 0')
+            if usertype: break
+
+        # Alumnos
+        alumno = next((x for x in almacen_datos.alumnos if x['dni'] == user), None)
+        if alumno:
+            for _ in range(3):
                 pasww = input('Ingrese su contraseña: ')
-                if any(x ['pasw'] == user for x in main.alumnos):
+                if pasww == alumno['pasw']:
                     usertype = 'a'
                     break
-                elif count == 3:
-                    print('Ha hecho muchos intentos, intente desde 0')
-                    break
-
                 else:
-                     print('Ha ingresado una contraseña no valida, intente de nuevo\n')
+                    print('Contraseña incorrecta. Intente de nuevo')
+            else:
+                print('Ha hecho muchos intentos, intente desde 0')
+            if usertype: break
 
-        else:
-             print('Ha ingresado un DNI no valido, intente de nuevo\n')
+        # DNI no encontrado
+        if not (profesor or alumno or user == admin):
+            print('El DNI no está en nuestra base de datos\n')
 
-        if usertype != '':
-             break
+    return usertype, user
