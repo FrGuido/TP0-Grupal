@@ -17,19 +17,19 @@ def Carga_Profesores(profe):
 
     while True:
         año = int(input('Ingrese el año\n> '))
-        if año < 1920 and año > 2010:
+        if año < 1920 or año > 2010:
             print('Ingrese un año de nacimiento valido')
         else:
             break
     while True:
         mes = int(input('Ingrese el mes\n> '))
-        if mes < 1 and mes > 12:
+        if mes < 1 or mes > 12:
             print('Ingrese un mes de nacimiento valido')
         else:
             break
     while True:
         dia = int(input('Ingrese el dia\n> '))
-        if dia < 1 and dia > 31:
+        if dia < 1 or dia > 31:
             print('Ingrese un dia de nacimiento valido')
         else:
             break
@@ -75,19 +75,19 @@ def Carga_Alumnos(alumno):
 
     while True:
         año = int(input('Ingrese el año\n> '))
-        if año < 1920 and año > 2010:
+        if año < 1920 or año > 2010:
             print('Ingrese un año de nacimiento valido')
         else:
             break
     while True:
         mes = int(input('Ingrese el mes\n> '))
-        if mes < 1 and mes > 12:
+        if mes < 1 or mes > 12:
             print('Ingrese un mes de nacimiento valido')
         else:
             break
     while True:
         dia = int(input('Ingrese el dia\n> '))
-        if dia < 1 and dia > 31:
+        if dia < 1 or dia > 31:
             print('Ingrese un dia de nacimiento valido')
         else:
             break
