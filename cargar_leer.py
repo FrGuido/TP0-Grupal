@@ -1,4 +1,5 @@
 import almacen_datos
+import pedirFecha
 
 def Carga_Profesores(profe):
 
@@ -14,26 +15,7 @@ def Carga_Profesores(profe):
 
     print('Ingrese la fecha de nacimiento del profesor')
     print('vvv')
-
-    while True:
-        año = int(input('Ingrese el año\n> '))
-        if año < 1920 or año > 2010:
-            print('Ingrese un año de nacimiento valido')
-        else:
-            break
-    while True:
-        mes = int(input('Ingrese el mes\n> '))
-        if mes < 1 or mes > 12:
-            print('Ingrese un mes de nacimiento valido')
-        else:
-            break
-    while True:
-        dia = int(input('Ingrese el dia\n> '))
-        if dia < 1 or dia > 31:
-            print('Ingrese un dia de nacimiento valido')
-        else:
-            break
-    profe['fecha_nac'] = (f'{año}/{mes}/{dia}')
+    profe['fecha_nac'] = pedirFecha.pedirFechaNac()
 
     print('Ingrese el dni del profesor')
     while True:
@@ -104,5 +86,4 @@ def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
             return profesor['nombre'] + profesor['apellido']
-            break            
-
+            break
