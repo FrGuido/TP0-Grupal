@@ -12,11 +12,6 @@ def login_users():
     while True:
         user = input('Ingrese su DNI: ').strip()
         
-        # Validación de DNI
-        if len(user) != 8 or not user.isdigit():
-            print('Ha ingresado un DNI no válido, intente de nuevo\n')
-            continue
-
         # Usuario administrador
         if user == admin:
             while True:
@@ -27,6 +22,11 @@ def login_users():
                 else:
                     print('Contraseña incorrecta. Intente de nuevo')
             break
+
+        # Validación de DNI
+        if len(user) != 8 or not user.isdigit():
+            print('Ha ingresado un DNI no válido, intente de nuevo\n')
+            continue
 
         # Profesores
         profesor = next((x for x in almacen_datos.profesores if x['dni'] == user), None)

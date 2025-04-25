@@ -37,8 +37,9 @@ def Carga_Profesores(profe):
 
     print('Ingrese el dni del profesor')
     while True:
-        profe['dni'] = (input('> '))
-        if len(profe['dni']) == 8 and profe['dni'].isdigit() and any(x ['dni'] != profe['dni'] for x in almacen_datos.profesores):
+        dni = (input('> ')).strip()
+        if len(dni) == 8 and dni.isdigit() and not any(x['dni'] == dni for x in almacen_datos.profesores):
+            profe['dni'] = int(dni)
             break
         else:
             print('Ingreso un DNI invalido, intente nuevamente')     
@@ -93,6 +94,9 @@ def Carga_Alumnos(alumno):
             break
     alumno['fecha_nac'] = (f'{año}/{mes}/{dia}')
 
+
+def cargar_en_lista(elemento,lista):
+    almacen_datos.lista.append(elemento)
 
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:

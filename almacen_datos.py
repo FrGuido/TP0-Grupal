@@ -3,7 +3,9 @@ notas = [] #matriz notas
 
 alumnos = [] #lista alumnos
 
-profesores = [] #lista
+profesores = [] #lista profesores
+
+materias = [] #lista materias
 
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
 
