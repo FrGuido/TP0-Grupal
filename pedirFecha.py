@@ -1,4 +1,4 @@
-def pedirFecha():
+def pedirFechaNac():
     while True: #bucle, termina cuando se ingrese una fecha valida
         fecha = input("Ingrese una fecha en formato dd/mm/aaaa: ")
         f = fecha.split("/")
