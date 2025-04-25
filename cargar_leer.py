@@ -94,10 +94,6 @@ def Carga_Alumnos(alumno):
             break
     alumno['fecha_nac'] = (f'{año}/{mes}/{dia}')
 
-
-def cargar_en_lista(elemento,lista):
-    almacen_datos.lista.append(elemento)
-
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:
         if alumno['dni'] == dni:
