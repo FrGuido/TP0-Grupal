@@ -5,7 +5,9 @@ alumnos = [] #lista alumnos
 
 profesores = [] #lista profesores
 
-materias = [] #lista materias
+materias = [] #lista materias con profesores
+
+cursos = [] #lista cursos
 
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
 
@@ -16,7 +18,7 @@ curso = {
     'nombre':str(),
     'cantidad alumnos': int(),
     'alumnos':[], #cantidad alumnos, limite 35
-    'materias':[], #materias por curso, limite ?
+    'materias':[], #materias por curso, limite 12
     'turno':str()
 }
 
@@ -24,7 +26,7 @@ curso = {
 #esqueleto materias
 materia = {
     'nombre':str(),
-    'profesores': [], #profesores por materia, limite 3
+    'profesores': [], #matriz profesores por materia, limite 5
     'dias': [], #lunes,martes,etc.
     'turno': str()
 }
@@ -45,10 +47,10 @@ alumno = {
 profesor = {
     'dni':int(),
     'nombre':str(),
-    'edad':int(),
+    'fecha_nac':int(),
     'apellido':str(),
-    'materias':[],
-    'pasw':str()
+    'pasw':str(),
+    'mail':str()
 }
 
 #esqueleto administrador

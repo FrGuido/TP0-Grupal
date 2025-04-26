@@ -20,7 +20,7 @@ def Carga_Profesores(profe):
     print('Ingrese el dni del profesor')
     while True:
         dni = (input('> ')).strip()
-        if len(dni) == 8 and dni.isdigit() and not any(x['dni'] == dni for x in almacen_datos.profesores):
+        if len(dni) == 8 and dni.isdigit() and not any(x ['dni'] == dni for x in almacen_datos.profesores):
             profe['dni'] = int(dni)
             break
         else:
@@ -87,3 +87,30 @@ def busqueda_nombre_profesores(dni):
         if profesor['dni'] == dni:
             return profesor['nombre'] + profesor['apellido']
             break
+
+def busqueda_datos_profesores(dni):
+    for profesor in almacen_datos.profesores:
+        if profesor['dni'] == dni:
+            print(f'---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----')
+            print(f'Fecha de Nacimiento : {profesor['fecha_nac']}')
+            listar_materias_prof(profesor['dni'])
+            
+
+def eliminar_diccionario_lista(dic,elemento):
+    return list(filter(lambda x: x.get('dni') != elemento, dic))
+
+def listar_materias_prof(dni):
+    mat = buscar_materias_prof(dni)
+    print('Materias:')
+    for i in mat:
+        print(f'> {i}')
+
+def buscar_materias_prof(dni):
+    materias = []
+    datos = []
+    for materia in almacen_datos.materias:
+        for fila in almacen_datos.materia['profesores']:
+            if dni in fila:
+                materias.append(materia['nombre'])
+                break
+    return materias

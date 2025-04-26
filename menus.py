@@ -57,7 +57,7 @@ def menu_admin():
                     almacen_datos.profesores.append(cargar_leer.Carga_Profesores(almacen_datos.profesor))
 
                     print("Cargando Profesor en lista...")
-                    input('Cargado! Ingrese "Enter" para continuar')
+                    input('Cargado! Ingrese "Enter" para volver al menu anterior')
                     
                 elif opcion == "2":   # Opción 2
                     ...
