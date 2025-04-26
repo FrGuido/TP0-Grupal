@@ -42,11 +42,11 @@ def Carga_Profesores(profe):
 def Carga_Alumnos(alumno):
 
     print('Ingrese el nombre del alumno')
-    alumno['nombre'] = (input('> '))
+    alumno['nombre'] = (input('> ')).capitalize()
     print()
 
     print('Ingrese el apellido del alumno')
-    alumno['apellido'] = (input('> '))
+    alumno['apellido'] = (input('> ')).capitalize()
     print()
 
     print('Ingrese el dni del alumno')
@@ -63,6 +63,27 @@ def Carga_Alumnos(alumno):
     print('vvv')
 
     alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
+
+    print('Ingrese el turno del alumno')
+    print('vvv')
+    while True:
+        input('Ingrese M (para turno Mañana) o T (para turno tarde)')
+        turno = input('> ').lower()
+        if turno == 'm':
+            alumno['turno'] = 'Mañana'
+            break
+        elif turno == 't':
+            alumno['turno'] = 'Tarde'
+            break
+        else:
+            print('Ingrese un valor valido, intente de nuevo')
+    
+    print('Ingrese el curso del alumno')
+    print('vvv')
+    alumno['curso'] = elegir_curso()
+
+    
+
 
 def valid_dni():
     while True:
@@ -128,3 +149,12 @@ def valid_pasw():
         else:
             print('Contraseña valida')
             return contra
+
+def elegir_curso():
+    print(almacen_datos.cursos, sep=' | ')
+    curso = input('> ').lower()
+    while True:
+        if curso not in almacen_datos.cursos:
+            print('Ingrese un curso valido')
+        else:
+            return curso

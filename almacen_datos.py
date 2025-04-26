@@ -7,7 +7,7 @@ profesores = [] #lista profesores
 
 materias = [] #lista materias con profesores
 
-cursos = [] #lista cursos
+cursos = ('1ero', '2do','3ero','4to','5to','6to') #tupla cursos
 
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
 
