@@ -60,7 +60,28 @@ def menu_admin():
                     input('Cargado! Ingrese "Enter" para volver al menu anterior')
                     
                 elif opcion == "2":   # Opción 2
-                    ...
+                    while True:
+                        print('Busque al Profesor por su DNI: ')
+                        dni = cargar_leer.valid_dni()
+                        cargar_leer.busqueda_datos_profesores(dni)
+                        print('Este es el que deseea eliminar?')
+                        elec = input('(Ingrese Y o N): ').lower()
+                        while True:
+                            if elec == 'y':
+                                almacen_datos.profesores = cargar_leer.eliminar_diccionario_lista(almacen_datos.profesores,dni)
+                                break
+                            elif elec == 'n':
+                                print('-'*20,'\n')
+                                break
+                            else:
+                                print('Por favor ingrese una de las dos letras indicadas')
+                                elec = input('(Ingrese Y o N): ').lower()
+                        if elec == 'y':
+                            print('Desea eliminar otro?')
+                            elec = input('(Ingrese Y o N): ').lower()
+                            if elec == 'n':
+                                break
+                        
                 elif opcion == "3":   # Opción 3
                     ...
                 elif opcion == "4":   # Opción 4

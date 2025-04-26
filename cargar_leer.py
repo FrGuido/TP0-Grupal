@@ -1,5 +1,6 @@
 import almacen_datos
 import pedirFecha
+import re
 
 def Carga_Profesores(profe):
 
@@ -19,18 +20,22 @@ def Carga_Profesores(profe):
 
     print('Ingrese el dni del profesor')
     while True:
-        dni = (input('> ')).strip()
-        if len(dni) == 8 and dni.isdigit() and not any(x ['dni'] == dni for x in almacen_datos.profesores):
-            profe['dni'] = int(dni)
+        dni = valid_dni()
+        if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
+            profe['dni'] = dni
             break
         else:
-            print('Ingreso un DNI invalido, intente nuevamente')     
+            print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
     print()
+
+    print('Ingrese el mail del profesor')
+    profe['mail'] = valid_mail()
 
     print('Ingrese una contraseña para el profesor')
     print('vvv')
-    profe['pasw'] = (input('> '))
+    profe['pasw'] = valid_pasw()
     print()
+
 
     return profe
 
@@ -46,55 +51,46 @@ def Carga_Alumnos(alumno):
 
     print('Ingrese el dni del alumno')
     while True:
-        alumno['dni'] = (input('> '))
-        if len(alumno['dni']) == 8 and alumno['dni'].isdigit():
+        dni = valid_dni()
+        if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
+            alumno['dni'] = dni
             break
         else:
-            print('Ingreso un DNI invalido, intente nuevamente')
+            print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
     print()
 
     print('Ingrese la fecha de nacimiento del alumno')
     print('vvv')
 
+    alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
+
+def valid_dni():
     while True:
-        año = int(input('Ingrese el año\n> '))
-        if año < 1920 or año > 2010:
-            print('Ingrese un año de nacimiento valido')
+        dni = (input('> '))
+        if len(dni) == 8 and dni.isdigit():
+            return int(dni)
         else:
-            break
-    while True:
-        mes = int(input('Ingrese el mes\n> '))
-        if mes < 1 or mes > 12:
-            print('Ingrese un mes de nacimiento valido')
-        else:
-            break
-    while True:
-        dia = int(input('Ingrese el dia\n> '))
-        if dia < 1 or dia > 31:
-            print('Ingrese un dia de nacimiento valido')
-        else:
-            break
-    alumno['fecha_nac'] = (f'{año}/{mes}/{dia}')
+            print('Ingreso un DNI invalido, intente nuevamente')
 
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:
         if alumno['dni'] == dni:
             return alumno['nombre'] + alumno['apellido']
-            break
 
 def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
             return profesor['nombre'] + profesor['apellido']
-            break
 
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
             print(f'---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----')
             print(f'Fecha de Nacimiento : {profesor['fecha_nac']}')
+            print(f'Mail : {profesor['mail']}')
             listar_materias_prof(profesor['dni'])
-            
+            print('-'*20)
+            break
 
 def eliminar_diccionario_lista(dic,elemento):
     return list(filter(lambda x: x.get('dni') != elemento, dic))
@@ -107,10 +103,28 @@ def listar_materias_prof(dni):
 
 def buscar_materias_prof(dni):
     materias = []
-    datos = []
     for materia in almacen_datos.materias:
         for fila in almacen_datos.materia['profesores']:
             if dni in fila:
                 materias.append(materia['nombre'])
                 break
     return materias
+
+def valid_mail():
+    while True:
+        validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\.-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'
+        mail = input("> ")
+        if re.match(validez, mail) is not None:
+            return mail
+        else:
+            print("Formato inválido. Intente nuevamente.\n")
+
+def valid_pasw():
+    print('La contraseña debe tener al menos un carcter en mayuscula,\nun numero, un simbolo y al menos 10 caracteres')
+    while True:
+        contra = input('> ')
+        if len(contra) < 10 or not re.search(r'[A-Z]',contra) or not re.search(r'\d', contra) or not re.search(r'\d', contra):
+            print('Contraseña no valida, intente de nuevo')
+        else:
+            print('Contraseña valida')
+            return contra
