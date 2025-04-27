@@ -7,6 +7,8 @@ profesores = [] #lista profesores
 
 materias = [] #lista materias con profesores
 
+dias = ('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes')
+
 cursos = ('1ero', '2do','3ero','4to','5to','6to') #tupla cursos
 
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
@@ -18,7 +20,7 @@ curso = {
     'nombre':str(),
     'cantidad alumnos': int(),
     'alumnos':[], #cantidad alumnos, limite 35
-    'materias':[], #materias por curso, limite 12
+    'materias':[], #materias por curso, limite 10
     'turno':str()
 }
 

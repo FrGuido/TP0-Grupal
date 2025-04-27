@@ -1,4 +1,6 @@
 import almacen_datos
+import eliminar
+import validar
 import pedirFecha
 import re
 
@@ -22,7 +24,7 @@ def Carga_Profesores(profe):
     print('ejemplo --> 22334455')
     print('vvv')
     while True:
-        dni = valid_dni()
+        dni = eliminar.valid_dni()
         if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
             profe['dni'] = dni
             break
@@ -33,16 +35,16 @@ def Carga_Profesores(profe):
     print('Ingrese el mail del profesor')
     print('ejemplo --> nombreprofe@ejemplo.com')
     print('vvv')
-    profe['mail'] = valid_mail()
+    profe['mail'] = validar.valid_mail()
 
     print('Ingrese el telefono del profesor')
     print('ejemplo --> 1122334455')
     print('vvv')
-    profe['telefono'] = valid_telefono()
+    profe['telefono'] = validar.valid_telefono()
 
     print('Ingrese una contraseña para el profesor')
     print('vvv')
-    profe['pasw'] = valid_pasw()
+    profe['pasw'] = validar.valid_pasw()
     print()
 
 
@@ -60,7 +62,7 @@ def Carga_Alumnos(alumno):
 
     print('Ingrese el dni del alumno')
     while True:
-        dni = valid_dni()
+        dni = eliminar.valid_dni()
         if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
             alumno['dni'] = dni
             break
@@ -91,6 +93,51 @@ def Carga_Alumnos(alumno):
     print('vvv')
     alumno['curso'] = elegir_curso()
 
+def Carga_Materias(materia):
+    while True:
+        print('Ingrese el nombre de la materia:')
+        materia['nombre'] = input('> ').capitalize()
+        for i in almacen_datos.materias:
+            if i['nombre'] == materia['nombre']:
+                print(f'Esa materia ya existe, y se encuentra en el turno {i['turno']}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                t = i['turno']
+        print()
+        print('Ingrese el turno de esta materia (Mañana o Tarde)')
+        while True:
+            materia['turno'] == input('> ').capitalize()
+            if materia['turno'] not in almacen_datos.turnos:
+                print('Ingrese un turno valido\n')
+            else:
+                break
+        if materia['turno'] == t:
+            print('Esta materia en este turno ya existe, intente de nuevo')
+        else:
+            break
+    print('Ingrese los dias que esta materia se va a cursar, limite 4')
+    while True:
+        dia = input(f'Ingrese el dia a añadir\n{almacen_datos.dias}').capitalize()
+        if dia in almacen_datos.dias:
+            materia['dias'].append(dia)
+            while True:
+                print('Desea añadir mas dias? (y o n)')
+                elec = input('> ').lower()
+                if elec == 'y':
+                    break
+                elif elec == 'n':
+                    print('-'*20,'\n')
+                    break
+                else:
+                    print('Por favor ingrese una de las dos letras indicadas')
+                    elec = input('(Ingrese Y o N): ').lower()
+        else:
+            print('Ingrese un dia valido por favor')
+            print('-'*10)
+        
+        if elec == 'n':
+            break
+    
+    return materia
+
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:
         if alumno['dni'] == dni:
@@ -111,8 +158,9 @@ def busqueda_datos_profesores(dni):
             print('-'*20)
             break
 
-def eliminar_diccionario_lista(dic,elemento):
-    return list(filter(lambda x: x.get('dni') != elemento, dic))
+
+def eliminar_diccionario_lista_materias(nombre,turno):
+    return list(filter(lambda x: x.get('nombre') != nombre and x.get('turno') != turno, almacen_datos.materias))
 
 def listar_materias_prof(dni):
     mat = buscar_materias_prof(dni)
@@ -129,42 +177,6 @@ def buscar_materias_prof(dni):
                 break
     return materias
 
-def valid_dni():
-    while True:
-        dni = (input('> '))
-        if len(dni) == 8 and dni.isdigit():
-            return int(dni)
-        else:
-            print('Ingreso un DNI invalido, intente nuevamente')
-
-def valid_mail():
-    while True:
-        validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\.-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'
-        mail = input("> ")
-        if re.match(validez, mail) is not None:
-            return mail
-        else:
-            print("Formato de mail inválido. Intente nuevamente.\n")
-
-def valid_pasw():
-    print('La contraseña debe tener al menos un carcter en mayuscula,\nun numero, un simbolo y al menos 10 caracteres')
-    while True:
-        contra = input('> ')
-        if len(contra) < 10 or not re.search(r'[A-Z]',contra) or not re.search(r'\d', contra) or not re.search(r'\d', contra):
-            print('Contraseña no valida, intente de nuevo')
-        else:
-            print('Contraseña valida')
-            return contra
-
-def valid_telefono():   
-    while True:
-        validez = r'^11\d{8}$'
-        tel = input("> ")
-        if re.match(validez, tel) is not None:
-            return tel
-        else:
-            print("Formato de telefono inválido. Intente nuevamente.\n")
-
 def elegir_curso():
     print(almacen_datos.cursos, sep=' | ')
     curso = input('> ').lower()
@@ -174,7 +186,7 @@ def elegir_curso():
         else:
             return curso
 
-def modif_prof(dic, elemento):
+def modif_prof(elemento):
     while True:
         for prof in almacen_datos.profesores:
             if prof['dni'] == elemento:
@@ -224,7 +236,7 @@ def modif_prof(dic, elemento):
                 print()
                 print('Modificando el DNI del profesor:')
                 while True:
-                    dni = valid_dni()
+                    dni = eliminar.valid_dni()
                     if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
                         profesor['dni'] = dni
                         break
@@ -246,7 +258,7 @@ def modif_prof(dic, elemento):
             elif opcion == '5':
                 print()
                 print('Modificando el Mail del profesor:')
-                profesor['mail'] = valid_mail()
+                profesor['mail'] = validar.valid_mail()
                 print('Mail cambiado con exito!')
                 print('-'*15)
                 break
@@ -254,7 +266,7 @@ def modif_prof(dic, elemento):
             elif opcion == '6':
                 print()
                 print('Modificando el Telefono del profesor:')
-                profesor['telefono'] = valid_telefono()
+                profesor['telefono'] = validar.valid_telefono()
                 print('Telefono cambiado con exito!')
                 print('-'*15)
                 break
@@ -262,10 +274,48 @@ def modif_prof(dic, elemento):
             elif opcion == '7':
                 print()
                 print('Modificando la Contraseña del profesor:')
-                profesor['pasw'] = valid_pasw()
+                profesor['pasw'] = validar.valid_pasw()
                 print('Contraseña cambiado con exito!')
                 print('-'*15)
                 break
         
         if opcion == '0':
+            for prof in almacen_datos.profesores:
+                if prof['dni'] == elemento:
+                    prof = profesor
+                    break
             break
+
+def buscar_materia():
+    while True:
+        nombre = input('Ingrese la materia\n> ').capitalize()
+        turno = input('Ingrese el turno \n>').capitalize()
+        for mat in almacen_datos.materias:
+            if mat['nombre'] == nombre and mat['turno'] == turno:
+                materia = mat
+                break
+            else:
+                materia = None
+        if materia == None:
+            print(f'La materia {nombre} del turno {turno}, no existe. Desea salir o intentar nuevamente?')
+            while True:
+                elec = input('Ingrese "Y" para salir y "N" para intentar de nuevo').lower()
+                if elec == 'y':
+                    nombre,turno = None,None
+                    break
+                elif elec == 'n':
+                    break
+                else:
+                    print('Ingrese un valor adecuado')
+        
+        if elec == 'y':
+            break
+
+    if materia != None:
+        for k, valor in materia():
+            print(f"{(k.capitalize()):<15}{str(valor):>30}")
+        return nombre,turno
+    
+    return nombre,turno
+    
+    
