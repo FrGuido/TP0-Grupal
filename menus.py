@@ -110,6 +110,9 @@ def menu_admin():
                                 break
 
                 elif opcion == "4":   # Opción 4
+                    print('Busque al Profesor por su DNI: ')
+                    dni = validar.valid_dni()
+                    cargar_leer.modif_materias_prof(dni)
                     pass
 
         elif opcion == "2":   # Opción 2 - Alumnos

@@ -22,7 +22,7 @@ des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota,
 
 
 #esqueleto cursos
-curso = {
+curso = {   
     'nombre':str(),
     'cantidad alumnos': int(),
     'alumnos':[], #cantidad alumnos, limite 35

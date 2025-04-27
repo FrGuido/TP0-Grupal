@@ -180,6 +180,22 @@ def modif_prof(elemento):
                     break
             break
 
+def modif_materias_prof(dni):
+    mats = []
+    lista = buscar_materias_prof(dni)
+    if not lista:
+        print('El profesor no posee materias')
+    else:
+        print('El profesor posee la siguientes materias:')
+        print(" | ".join(map(str, lista)))
+    
+    print('')
+    for materia in almacen_datos.materias:
+        for fila in almacen_datos.materia['nombre']:
+            print (materia['nombre']+ ' | ')
+            mats.append(materia['nombre'])
+    
+
 
 
 def Carga_Alumnos(alumno):
