@@ -31,7 +31,7 @@ def menu_admin():
         elif opcion == "1":   # Opción 1
             while True:
                 while True:
-                    opciones = 3
+                    opciones = 4
                     print()
                     print("---------------------------")
                     print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
@@ -39,6 +39,7 @@ def menu_admin():
                     print("[1] Añadir Profesores")
                     print("[2] Eliminar Profesor")
                     print("[3] Modificar Profesor")
+                    print("[4] Modificar Materias Profesor")
                     print("---------------------------")
                     print("[0] Volver al menú anterior")
                     print("---------------------------")
@@ -53,6 +54,7 @@ def menu_admin():
 
                 if opcion == "0": # Opción salir del submenú
                     break # No salimos del programa, volvemos al menú anterior
+                
                 elif opcion == "1":   # Opción 1
                     almacen_datos.profesores.append(cargar_leer.Carga_Profesores(almacen_datos.profesor))
 
@@ -83,9 +85,29 @@ def menu_admin():
                                 break
                         
                 elif opcion == "3":   # Opción 3
-                    ...
+                        print('Busque al Profesor por su DNI: ')
+                        dni = cargar_leer.valid_dni()
+                        cargar_leer.busqueda_datos_profesores(dni)
+                        print('Este es el que deseea modificar?')
+                        elec = input('(Ingrese Y o N): ').lower()
+                        while True:
+                            if elec == 'y':
+                                almacen_datos.profesores = cargar_leer.modif_prof(almacen_datos.profesores,dni)
+                                break
+                            elif elec == 'n':
+                                print('-'*20,'\n')
+                                break
+                            else:
+                                print('Por favor ingrese una de las dos letras indicadas')
+                                elec = input('(Ingrese Y o N): ').lower()
+                        if elec == 'y':
+                            print('Desea modificar otro?')
+                            elec = input('(Ingrese Y o N): ').lower()
+                            if elec == 'n':
+                                break
+
                 elif opcion == "4":   # Opción 4
-                    ...
+                    pass
 
         elif opcion == "2":   # Opción 2
             ...

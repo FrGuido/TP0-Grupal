@@ -19,6 +19,8 @@ def Carga_Profesores(profe):
     profe['fecha_nac'] = pedirFecha.pedirFechaNac()
 
     print('Ingrese el dni del profesor')
+    print('ejemplo --> 22334455')
+    print('vvv')
     while True:
         dni = valid_dni()
         if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
@@ -29,7 +31,14 @@ def Carga_Profesores(profe):
     print()
 
     print('Ingrese el mail del profesor')
+    print('ejemplo --> nombreprofe@ejemplo.com')
+    print('vvv')
     profe['mail'] = valid_mail()
+
+    print('Ingrese el telefono del profesor')
+    print('ejemplo --> 1122334455')
+    print('vvv')
+    profe['telefono'] = valid_telefono()
 
     print('Ingrese una contraseña para el profesor')
     print('vvv')
@@ -82,17 +91,6 @@ def Carga_Alumnos(alumno):
     print('vvv')
     alumno['curso'] = elegir_curso()
 
-    
-
-
-def valid_dni():
-    while True:
-        dni = (input('> '))
-        if len(dni) == 8 and dni.isdigit():
-            return int(dni)
-        else:
-            print('Ingreso un DNI invalido, intente nuevamente')
-
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:
         if alumno['dni'] == dni:
@@ -131,6 +129,14 @@ def buscar_materias_prof(dni):
                 break
     return materias
 
+def valid_dni():
+    while True:
+        dni = (input('> '))
+        if len(dni) == 8 and dni.isdigit():
+            return int(dni)
+        else:
+            print('Ingreso un DNI invalido, intente nuevamente')
+
 def valid_mail():
     while True:
         validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\.-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$'
@@ -138,7 +144,7 @@ def valid_mail():
         if re.match(validez, mail) is not None:
             return mail
         else:
-            print("Formato inválido. Intente nuevamente.\n")
+            print("Formato de mail inválido. Intente nuevamente.\n")
 
 def valid_pasw():
     print('La contraseña debe tener al menos un carcter en mayuscula,\nun numero, un simbolo y al menos 10 caracteres')
@@ -150,6 +156,15 @@ def valid_pasw():
             print('Contraseña valida')
             return contra
 
+def valid_telefono():   
+    while True:
+        validez = r'^11\d{8}$'
+        tel = input("> ")
+        if re.match(validez, tel) is not None:
+            return tel
+        else:
+            print("Formato de telefono inválido. Intente nuevamente.\n")
+
 def elegir_curso():
     print(almacen_datos.cursos, sep=' | ')
     curso = input('> ').lower()
@@ -158,3 +173,99 @@ def elegir_curso():
             print('Ingrese un curso valido')
         else:
             return curso
+
+def modif_prof(dic, elemento):
+    while True:
+        for prof in almacen_datos.profesores:
+            if prof['dni'] == elemento:
+                profesor = prof
+
+        while True:
+            opciones = 7
+            print(f'Que desea modificar?')
+            print("[1] Nombre")
+            print("[2] Apellido")
+            print("[3] DNI")
+            print("[4] Fecha de Nacimiento")
+            print("[5] Mail")
+            print("[6] Telefono")
+            print("[7] Contraseña")
+            print("---------------------------")
+            print("[0] Salir")
+            print("---------------------------")
+            print()
+            opcion = input("Seleccione una opción: ")
+            if opcion in [str(i) for i in range(0, opciones + 1)]:
+                break
+            else:
+                input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        while True:
+
+            if opcion == '0':
+                break
+
+            elif opcion == '1':
+                print()
+                print('Modificando el Nombre del profesor:')
+                profesor['nombre'] = input('> ').capitalize()
+                print('Nombre cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '2':
+                print()
+                print('Modificando el Apellido del profesor:')
+                profesor['apellido'] = input('> ').capitalize()
+                print('Apellido cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '3':
+                print()
+                print('Modificando el DNI del profesor:')
+                while True:
+                    dni = valid_dni()
+                    if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
+                        profesor['dni'] = dni
+                        break
+                    else:
+                        print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
+                        print()
+                print('DNI cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '4':
+                print()
+                print('Modificando la Fecha de Nacimiento del profesor:')
+                profesor['fecha_nac'] = pedirFecha.pedirFechaNac()
+                print('Fecha de Nacimiento cambiado con exito!')
+                print('-'*15)
+                break
+            
+            elif opcion == '5':
+                print()
+                print('Modificando el Mail del profesor:')
+                profesor['mail'] = valid_mail()
+                print('Mail cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '6':
+                print()
+                print('Modificando el Telefono del profesor:')
+                profesor['telefono'] = valid_telefono()
+                print('Telefono cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '7':
+                print()
+                print('Modificando la Contraseña del profesor:')
+                profesor['pasw'] = valid_pasw()
+                print('Contraseña cambiado con exito!')
+                print('-'*15)
+                break
+        
+        if opcion == '0':
+            break

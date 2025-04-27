@@ -37,7 +37,7 @@ alumno = {
     'nombre':str(),
     'apellido':str(),
     'fecha_nac':int(),
-    'curso':int(),
+    'curso':str(),
     'truno':str(),
     'notas':[],
     'pasw':str()
@@ -50,7 +50,8 @@ profesor = {
     'fecha_nac':int(),
     'apellido':str(),
     'pasw':str(),
-    'mail':str()
+    'mail':str(),
+    'telefono':int()
 }
 
 #esqueleto administrador
