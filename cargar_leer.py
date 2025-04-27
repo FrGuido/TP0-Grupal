@@ -50,99 +50,6 @@ def Carga_Profesores(profe):
 
     return profe
 
-def Carga_Alumnos(alumno):
-
-    print('Ingrese el nombre del alumno')
-    alumno['nombre'] = (input('> ')).capitalize()
-    print()
-
-    print('Ingrese el apellido del alumno')
-    alumno['apellido'] = (input('> ')).capitalize()
-    print()
-
-    print('Ingrese el dni del alumno')
-    while True:
-        dni = eliminar.valid_dni()
-        if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
-            alumno['dni'] = dni
-            break
-        else:
-            print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
-    print()
-
-    print('Ingrese la fecha de nacimiento del alumno')
-    print('vvv')
-
-    alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
-
-    print('Ingrese el turno del alumno')
-    print('vvv')
-    while True:
-        input('Ingrese M (para turno Mañana) o T (para turno tarde)')
-        turno = input('> ').lower()
-        if turno == 'm':
-            alumno['turno'] = 'Mañana'
-            break
-        elif turno == 't':
-            alumno['turno'] = 'Tarde'
-            break
-        else:
-            print('Ingrese un valor valido, intente de nuevo')
-    
-    print('Ingrese el curso del alumno')
-    print('vvv')
-    alumno['curso'] = elegir_curso()
-
-def Carga_Materias(materia):
-    while True:
-        print('Ingrese el nombre de la materia:')
-        materia['nombre'] = input('> ').capitalize()
-        for i in almacen_datos.materias:
-            if i['nombre'] == materia['nombre']:
-                print(f'Esa materia ya existe, y se encuentra en el turno {i['turno']}\nDesea continuar igualmente, debera incluirla con un turno distinto')
-                t = i['turno']
-        print()
-        print('Ingrese el turno de esta materia (Mañana o Tarde)')
-        while True:
-            materia['turno'] == input('> ').capitalize()
-            if materia['turno'] not in almacen_datos.turnos:
-                print('Ingrese un turno valido\n')
-            else:
-                break
-        if materia['turno'] == t:
-            print('Esta materia en este turno ya existe, intente de nuevo')
-        else:
-            break
-    print('Ingrese los dias que esta materia se va a cursar, limite 4')
-    while True:
-        dia = input(f'Ingrese el dia a añadir\n{almacen_datos.dias}').capitalize()
-        if dia in almacen_datos.dias:
-            materia['dias'].append(dia)
-            while True:
-                print('Desea añadir mas dias? (y o n)')
-                elec = input('> ').lower()
-                if elec == 'y':
-                    break
-                elif elec == 'n':
-                    print('-'*20,'\n')
-                    break
-                else:
-                    print('Por favor ingrese una de las dos letras indicadas')
-                    elec = input('(Ingrese Y o N): ').lower()
-        else:
-            print('Ingrese un dia valido por favor')
-            print('-'*10)
-        
-        if elec == 'n':
-            break
-    
-    return materia
-
-def busqueda_nombre_alumnos(dni):
-    for alumno in almacen_datos.alumnos:
-        if alumno['dni'] == dni:
-            return alumno['nombre'] + alumno['apellido']
-
 def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
@@ -172,15 +79,6 @@ def buscar_materias_prof(dni):
                 materias.append(materia['nombre'])
                 break
     return materias
-
-def elegir_curso():
-    print(almacen_datos.cursos, sep=' | ')
-    curso = input('> ').lower()
-    while True:
-        if curso not in almacen_datos.cursos:
-            print('Ingrese un curso valido')
-        else:
-            return curso
 
 def modif_prof(elemento):
     while True:
@@ -282,6 +180,112 @@ def modif_prof(elemento):
                     break
             break
 
+
+
+def Carga_Alumnos(alumno):
+
+    print('Ingrese el nombre del alumno')
+    alumno['nombre'] = (input('> ')).capitalize()
+    print()
+
+    print('Ingrese el apellido del alumno')
+    alumno['apellido'] = (input('> ')).capitalize()
+    print()
+
+    print('Ingrese el dni del alumno')
+    while True:
+        dni = eliminar.valid_dni()
+        if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
+            alumno['dni'] = dni
+            break
+        else:
+            print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
+    print()
+
+    print('Ingrese la fecha de nacimiento del alumno')
+    print('vvv')
+
+    alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
+
+    print('Ingrese el turno del alumno')
+    print('vvv')
+    while True:
+        input('Ingrese M (para turno Mañana) o T (para turno tarde)')
+        turno = input('> ').lower()
+        if turno == 'm':
+            alumno['turno'] = 'Mañana'
+            break
+        elif turno == 't':
+            alumno['turno'] = 'Tarde'
+            break
+        else:
+            print('Ingrese un valor valido, intente de nuevo')
+    
+    print('Ingrese el curso del alumno')
+    print('vvv')
+    alumno['curso'] = elegir_curso()
+
+def busqueda_nombre_alumnos(dni):
+    for alumno in almacen_datos.alumnos:
+        if alumno['dni'] == dni:
+            return alumno['nombre'] + alumno['apellido']
+
+def elegir_curso():
+    print(almacen_datos.nros_cursos, sep=' | ')
+    curso = input('> ').lower()
+    while True:
+        if curso not in almacen_datos.nros_cursos:
+            print('Ingrese un curso valido')
+        else:
+            return curso
+
+
+
+def Carga_Materias(materia):
+    while True:
+        print('Ingrese el nombre de la materia:')
+        materia['nombre'] = input('> ').capitalize()
+        for i in almacen_datos.materias:
+            if i['nombre'] == materia['nombre']:
+                print(f'Esa materia ya existe, y se encuentra en el turno {i['turno']}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                t = i['turno']
+        print()
+        print('Ingrese el turno de esta materia (Mañana o Tarde)')
+        while True:
+            materia['turno'] == input('> ').capitalize()
+            if materia['turno'] not in almacen_datos.turnos:
+                print('Ingrese un turno valido\n')
+            else:
+                break
+        if materia['turno'] == t:
+            print('Esta materia en este turno ya existe, intente de nuevo')
+        else:
+            break
+    print('Ingrese los dias que esta materia se va a cursar, limite 4')
+    while True:
+        dia = input(f'Ingrese el dia a añadir\n{almacen_datos.dias}').capitalize()
+        if dia in almacen_datos.dias:
+            materia['dias'].append(dia)
+            while True:
+                print('Desea añadir mas dias? (y o n)')
+                elec = input('> ').lower()
+                if elec == 'y':
+                    break
+                elif elec == 'n':
+                    print('-'*20,'\n')
+                    break
+                else:
+                    print('Por favor ingrese una de las dos letras indicadas')
+                    elec = input('(Ingrese Y o N): ').lower()
+        else:
+            print('Ingrese un dia valido por favor')
+            print('-'*10)
+        
+        if elec == 'n':
+            break
+    
+    return materia
+
 def buscar_materia():
     while True:
         nombre = input('Ingrese la materia\n> ').capitalize()
@@ -313,5 +317,4 @@ def buscar_materia():
         return nombre,turno
     
     return nombre,turno
-    
     

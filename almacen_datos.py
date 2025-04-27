@@ -7,9 +7,15 @@ profesores = [] #lista profesores
 
 materias = [] #lista materias con profesores
 
+Registro = []
+
+cursos = []
+
 dias = ('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes')
 
-cursos = ('1ero', '2do','3ero','4to','5to','6to') #tupla cursos
+nros_cursos = ('1ero', '2do','3ero','4to','5to','6to') #tupla cursos
+
+turnos = ('Mañana', 'Tarde')
 
 des_nota = [str(), str(), str(), float(), int()] #profesor, curso, alumno, nota, fecha(100625)
 
@@ -54,12 +60,4 @@ profesor = {
     'pasw':str(),
     'mail':str(),
     'telefono':int()
-}
-
-#esqueleto administrador
-administrador = {
-    'dni':int(),
-    'nombre':str(),
-    'edad':int(),
-    'apellido':str()
 }

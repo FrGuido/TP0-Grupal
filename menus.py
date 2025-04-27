@@ -6,7 +6,7 @@ import validar
 def menu_admin():
     while True:
         while True:
-            opciones = 5
+            opciones = 4
             print()
             print("-"*26)
             print("MENÚ PRINCIPAL")
@@ -15,7 +15,6 @@ def menu_admin():
             print("[2] Gestión de alumnos")
             print("[3] Gestión de materias")
             print("[4] Registro de cambios")
-            print("[5] Opción 5")
             print("-"*26)
             print("[0] Salir del programa")
             print("-"*26)
@@ -31,7 +30,7 @@ def menu_admin():
         if opcion == "0": # Opción salir del programa
             exit() 
 
-        elif opcion == "1":   # Opción 1
+        elif opcion == "1":   # Opción 1 - Profesores
             while True:
                 while True:
                     opciones = 4
@@ -113,9 +112,9 @@ def menu_admin():
                 elif opcion == "4":   # Opción 4
                     pass
 
-        elif opcion == "2":   # Opción 2
+        elif opcion == "2":   # Opción 2 - Alumnos
             ...
-        elif opcion == "3":   # Opción 3
+        elif opcion == "3":   # Opción 3 - Materias
             while True:
                 while True:
                     opciones = 3
@@ -197,7 +196,7 @@ def menu_admin():
                         else:
                             break
 
-        elif opcion == "4":   # Opción 4
+        elif opcion == "4":   # Opción 4 - 
             ...
         elif opcion == "5":   # Opción 5
             ...
