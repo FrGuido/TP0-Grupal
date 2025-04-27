@@ -58,9 +58,9 @@ def busqueda_nombre_profesores(dni):
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
-            print(f'---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----')
-            print(f'Fecha de Nacimiento : {profesor['fecha_nac']}')
-            print(f'Mail : {profesor['mail']}')
+            print(f"---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----")
+            print(f"Fecha de Nacimiento : {profesor['fecha_nac']}")
+            print(f"Mail : {profesor['mail']}")
             listar_materias_prof(profesor['dni'])
             print('-'*20)
             break
