@@ -158,10 +158,6 @@ def busqueda_datos_profesores(dni):
             print('-'*20)
             break
 
-
-def eliminar_diccionario_lista_materias(nombre,turno):
-    return list(filter(lambda x: x.get('nombre') != nombre and x.get('turno') != turno, almacen_datos.materias))
-
 def listar_materias_prof(dni):
     mat = buscar_materias_prof(dni)
     print('Materias:')
