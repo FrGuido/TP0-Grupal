@@ -336,5 +336,102 @@ def buscar_materia():
     
     return nombre,turno
     
-def modif_materias():
-    pass
+def modif_materias(nombre,turno):
+    while True:
+        for x in almacen_datos.materias:
+            if x['nombre'] == nombre and x['turno'] == turno:
+                mat = x
+
+        while True:
+            opciones = 7
+            print(f'Que desea modificar?')
+            print("[1] Nombre")
+            print("[2] Apellido")
+            print("[3] DNI")
+            print("[4] Fecha de Nacimiento")
+            print("[5] Mail")
+            print("[6] Telefono")
+            print("[7] Contraseña")
+            print("---------------------------")
+            print("[0] Salir")
+            print("---------------------------")
+            print()
+            opcion = input("Seleccione una opción: ")
+            if opcion in [str(i) for i in range(0, opciones + 1)]:
+                break
+            else:
+                input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        while True:
+
+            if opcion == '0':
+                break
+
+            elif opcion == '1':
+                print()
+                print('Modificando el Nombre del profesor:')
+                profesor['nombre'] = input('> ').capitalize()
+                print('Nombre cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '2':
+                print()
+                print('Modificando el Apellido del profesor:')
+                profesor['apellido'] = input('> ').capitalize()
+                print('Apellido cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '3':
+                print()
+                print('Modificando el DNI del profesor:')
+                while True:
+                    dni = validar.valid_dni()
+                    if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
+                        profesor['dni'] = dni
+                        break
+                    else:
+                        print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
+                        print()
+                print('DNI cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '4':
+                print()
+                print('Modificando la Fecha de Nacimiento del profesor:')
+                profesor['fecha_nac'] = pedirFecha.pedirFechaNac()
+                print('Fecha de Nacimiento cambiado con exito!')
+                print('-'*15)
+                break
+            
+            elif opcion == '5':
+                print()
+                print('Modificando el Mail del profesor:')
+                profesor['mail'] = validar.valid_mail()
+                print('Mail cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '6':
+                print()
+                print('Modificando el Telefono del profesor:')
+                profesor['telefono'] = validar.valid_telefono()
+                print('Telefono cambiado con exito!')
+                print('-'*15)
+                break
+
+            elif opcion == '7':
+                print()
+                print('Modificando la Contraseña del profesor:')
+                profesor['pasw'] = validar.valid_pasw()
+                print('Contraseña cambiado con exito!')
+                print('-'*15)
+                break
+        
+        if opcion == '0':
+            for prof in almacen_datos.profesores:
+                if prof['dni'] == elemento:
+                    prof = profesor
+                    break
+            break
