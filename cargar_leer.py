@@ -53,7 +53,8 @@ def Carga_Profesores(profe):
 def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
-            return profesor['nombre'] + profesor['apellido']
+            return f"{profesor['nombre']} {profesor['apellido']}"
+    return None  # Devuelve None si no encuentra al profesor
 
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
@@ -180,26 +181,142 @@ def modif_prof(elemento):
                     break
             break
 
-def modif_materias_prof(dni):
-    mats = []
-    lista = buscar_materias_prof(dni)
-    if not lista:
-        print('El profesor no posee materias')
-    else:
-        print('El profesor posee la siguientes materias:')
-        print(" | ".join(map(str, lista)))
+def modif_materias(nombre, turno):
+    # Buscar la materia a modificar
+    materia_mod = None
+    for mat in almacen_datos.materias:
+        if mat['nombre'] == nombre and mat['turno'] == turno:
+            materia_mod = mat
+            break
     
-    print('')
-    for materia in almacen_datos.materias:
-        for fila in almacen_datos.materia['nombre']:
-            print (materia['nombre']+ ' | ')
-            mats.append(materia['nombre'])
+    if materia_mod is None:
+        print("Materia no encontrada.")
+        return
     
+    while True:
+        print("\nDatos actuales de la materia:")
+        print(f"Nombre: {materia_mod['nombre']}")
+        print(f"Turno: {materia_mod['turno']}")
+        print(f"Días: {', '.join(materia_mod['dias'])}")
+        print(f"Profesores: {len(materia_mod['profesores'])}")
+        
+        print("\n¿Qué desea modificar?")
+        print("[1] Nombre")
+        print("[2] Turno")
+        print("[3] Días de cursada")
+        print("[4] Profesores")
+        print("[0] Volver")
+        
+        opcion = input("Seleccione una opción: ")
+        
+        if opcion == '0':
+            break
+            
+        elif opcion == '1':
+            nuevo_nombre = input("Ingrese el nuevo nombre de la materia: ").capitalize()
+            # Verificar que no exista otra materia con mismo nombre y turno
+            existe = any(m for m in almacen_datos.materias 
+                        if m['nombre'] == nuevo_nombre and 
+                        m['turno'] == materia_mod['turno'] and 
+                        m != materia_mod)
+            if existe:
+                print("Ya existe una materia con ese nombre y turno.")
+            else:
+                materia_mod['nombre'] = nuevo_nombre
+                print("Nombre modificado con éxito.")
+                
+        elif opcion == '2':
+            nuevo_turno = input("Ingrese el nuevo turno (Mañana/Tarde): ").capitalize()
+            if nuevo_turno not in almacen_datos.turnos:
+                print("Turno inválido.")
+            else:
+                # Verificar que no exista otra materia con mismo nombre y nuevo turno
+                existe = any(m for m in almacen_datos.materias 
+                            if m['nombre'] == materia_mod['nombre'] and 
+                            m['turno'] == nuevo_turno and 
+                            m != materia_mod)
+                if existe:
+                    print("Ya existe una materia con ese nombre en el turno seleccionado.")
+                else:
+                    materia_mod['turno'] = nuevo_turno
+                    print("Turno modificado con éxito.")
+                    
+        elif opcion == '3':
+            print("Días actuales:", ', '.join(materia_mod['dias']))
+            materia_mod['dias'] = []
+            while True:
+                dia = input(f"Ingrese un día a añadir ({', '.join(almacen_datos.dias)}): ").capitalize()
+                if dia in almacen_datos.dias:
+                    if dia not in materia_mod['dias']:
+                        materia_mod['dias'].append(dia)
+                        print(f"Día {dia} añadido.")
+                    else:
+                        print("Este día ya está asignado.")
+                else:
+                    print("Día inválido.")
+                
+                if len(materia_mod['dias']) >= 4:
+                    print("Límite de días alcanzado (4).")
+                    break
+                    
+                resp = input("¿Desea añadir otro día? (s/n): ").lower()
+                if resp != 's':
+                    break
+                    
+        elif opcion == '4':
+            print("\nGestión de profesores para esta materia:")
+            while True:
+                print("\n[1] Añadir profesor")
+                print("[2] Eliminar profesor")
+                print("[0] Volver")
+                
+                sub_opcion = input("Seleccione una opción: ")
+                
+                if sub_opcion == '0':
+                    break
+                    
+                elif sub_opcion == '1':
+                    dni = validar.valid_dni()
+                    profesor = next((p for p in almacen_datos.profesores if p['dni'] == dni), None)
+                    if profesor:
+                        if dni not in [p[0] for p in materia_mod['profesores']]:
+                            materia_mod['profesores'].append([dni, profesor['nombre'], profesor['apellido']])
+                            print(f"Profesor {profesor['nombre']} {profesor['apellido']} añadido.")
+                        else:
+                            print("Este profesor ya está asignado a la materia.")
+                    else:
+                        print("Profesor no encontrado.")
+                        
+                elif sub_opcion == '2':
+                    if not materia_mod['profesores']:
+                        print("No hay profesores asignados.")
+                        continue
+                        
+                    print("\nProfesores asignados:")
+                    for i, prof in enumerate(materia_mod['profesores'], 1):
+                        print(f"{i}. {prof[1]} {prof[2]} (DNI: {prof[0]})")
+                    
+                    try:
+                        num = int(input("Seleccione el número de profesor a eliminar (0 para cancelar): "))
+                        if num == 0:
+                            continue
+                        if 1 <= num <= len(materia_mod['profesores']):
+                            removed = materia_mod['profesores'].pop(num-1)
+                            print(f"Profesor {removed[1]} {removed[2]} eliminado.")
+                        else:
+                            print("Número inválido.")
+                    except ValueError:
+                        print("Ingrese un número válido.")
+                
+                else:
+                    print("Opción inválida.")
+                    
+        else:
+            print("Opción inválida.")
 
 
 
 def Carga_Alumnos(alumno):
-
     print('Ingrese el nombre del alumno')
     alumno['nombre'] = (input('> ')).capitalize()
     print()
@@ -211,7 +328,7 @@ def Carga_Alumnos(alumno):
     print('Ingrese el dni del alumno')
     while True:
         dni = validar.valid_dni()
-        if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
+        if not any(a['dni'] == dni for a in almacen_datos.alumnos):
             alumno['dni'] = dni
             break
         else:
@@ -219,15 +336,11 @@ def Carga_Alumnos(alumno):
     print()
 
     print('Ingrese la fecha de nacimiento del alumno')
-    print('vvv')
-
     alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
 
     print('Ingrese el turno del alumno')
-    print('vvv')
     while True:
-        input('Ingrese M (para turno Mañana) o T (para turno tarde)')
-        turno = input('> ').lower()
+        turno = input('Ingrese M (para turno Mañana) o T (para turno Tarde): ').lower()
         if turno == 'm':
             alumno['turno'] = 'Mañana'
             break
@@ -236,15 +349,123 @@ def Carga_Alumnos(alumno):
             break
         else:
             print('Ingrese un valor valido, intente de nuevo')
-    
+
     print('Ingrese el curso del alumno')
-    print('vvv')
     alumno['curso'] = elegir_curso()
+
+    # Añadir el alumno a la lista
+    almacen_datos.alumnos.append(alumno)
+    print("Alumno añadido con éxito.")
+    print("Lista actual de alumnos:", almacen_datos.alumnos)
 
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:
         if alumno['dni'] == dni:
-            return alumno['nombre'] + alumno['apellido']
+            return f"{alumno['nombre']} {alumno['apellido']}"
+    return None  # Devuelve None si no encuentra al alumno
+
+def busqueda_datos_alumnos(dni):
+    print("Buscando DNI:", dni)
+    for alumno in almacen_datos.alumnos:
+        print("Revisando alumno:", alumno)  # Depuración
+        if isinstance(alumno, dict) and 'dni' in alumno:
+            if alumno['dni'] == dni:
+                print(f"---- Datos del Alumno {alumno['nombre']} {alumno['apellido']} ----")
+                print(f"DNI: {alumno['dni']}")
+                print(f"Fecha de Nacimiento: {alumno['fecha_nac']}")
+                print(f"Curso: {alumno['curso']}")
+                print(f"Turno: {alumno['turno']}")
+                print('-'*20)
+                return alumno
+    print("Alumno no encontrado.")
+    return None  # Devuelve None si no encuentra al alumno
+
+def modif_alumno(dni):
+    alumno = next((a for a in almacen_datos.alumnos if a['dni'] == dni), None)
+    if not alumno:
+        print("Alumno no encontrado.")
+        return
+
+    while True:
+        print("\n¿Qué desea modificar?")
+        print("[1] Nombre")
+        print("[2] Apellido")
+        print("[3] DNI")
+        print("[4] Fecha de Nacimiento")
+        print("[5] Turno")
+        print("[6] Curso")
+        print("[7] Contraseña")
+        print("[0] Volver")
+        
+        opcion = input("Seleccione una opción: ")
+        
+        if opcion == '0':
+            break
+            
+        elif opcion == '1':
+            print("Nombre actual:", alumno['nombre'])
+            alumno['nombre'] = input("Nuevo nombre: ").capitalize()
+            print("Nombre modificado con éxito.")
+            
+        elif opcion == '2':
+            print("Apellido actual:", alumno['apellido'])
+            alumno['apellido'] = input("Nuevo apellido: ").capitalize()
+            print("Apellido modificado con éxito.")
+            
+        elif opcion == '3':
+            print("DNI actual:", alumno['dni'])
+            while True:
+                nuevo_dni = validar.valid_dni()
+                if not any(a['dni'] == nuevo_dni for a in almacen_datos.alumnos if a['dni'] != dni):
+                    alumno['dni'] = nuevo_dni
+                    print("DNI modificado con éxito.")
+                    break
+                else:
+                    print("Este DNI ya está en uso. Intente con otro.")
+                    
+        elif opcion == '4':
+            print("Fecha de nacimiento actual:", alumno['fecha_nac'])
+            print("Ingrese la nueva fecha de nacimiento:")
+            alumno['fecha_nac'] = pedirFecha.pedirFechaNac()
+            print("Fecha de nacimiento modificada con éxito.")
+            
+        elif opcion == '5':
+            print("Turno actual:", alumno['turno'])
+            while True:
+                nuevo_turno = input("Ingrese nuevo turno (Mañana/Tarde): ").capitalize()
+                if nuevo_turno in almacen_datos.turnos:
+                    alumno['turno'] = nuevo_turno
+                    print("Turno modificado con éxito.")
+                    break
+                else:
+                    print("Turno inválido. Intente nuevamente.")
+                    
+        elif opcion == '6':
+            print("Curso actual:", alumno['curso'])
+            print("Seleccione nuevo curso:")
+            alumno['curso'] = elegir_curso()
+            print("Curso modificado con éxito.")
+            
+        elif opcion == '7':
+            print("Ingrese nueva contraseña:")
+            alumno['pasw'] = validar.valid_pasw()
+            print("Contraseña modificada con éxito.")
+            
+        else:
+            print("Opción inválida.")
+
+def ver_notas_alumno(dni):
+    alumno = next((a for a in almacen_datos.alumnos if a['dni'] == dni), None)
+    if not alumno:
+        print("Alumno no encontrado.")
+        return
+    
+    print(f"\nNotas de {alumno['nombre']} {alumno['apellido']}:")
+    if not alumno['notas']:
+        print("El alumno no tiene notas cargadas.")
+    else:
+        for nota in alumno['notas']:
+            print(f"Materia: {nota[1]} - Nota: {nota[3]} - Fecha: {nota[4]}")
 
 def elegir_curso():
     print(almacen_datos.nros_cursos, sep=' | ')
