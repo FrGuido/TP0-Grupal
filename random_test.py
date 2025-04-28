@@ -14,6 +14,7 @@ def generar_profesores(cantidad=20):
         fecha_nac = random.randint(19600101, 20050101)  # formato AAAAMMDD
         pasw = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
         mail = f"{nombre.lower()}.{apellido.lower()}@mail.com"
+        telefono = random.randint(10000000, 49999999)
 
         profesor = {
             'dni': dni,
@@ -21,7 +22,8 @@ def generar_profesores(cantidad=20):
             'fecha_nac': fecha_nac,
             'apellido': apellido,
             'pasw': pasw,
-            'mail': mail
+            'mail': mail,
+            'telefono': telefono
         }
 
         profesores.append(profesor)
