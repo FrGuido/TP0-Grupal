@@ -58,9 +58,9 @@ def busqueda_nombre_profesores(dni):
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
-            print(f'---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----')
-            print(f'Fecha de Nacimiento : {profesor['fecha_nac']}')
-            print(f'Mail : {profesor['mail']}')
+            print(f"---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----")
+            print(f"Fecha de Nacimiento : {profesor['fecha_nac']}")
+            print(f"Mail : {profesor['mail']}")
             listar_materias_prof(profesor['dni'])
             print('-'*20)
             break
@@ -264,7 +264,7 @@ def Carga_Materias(materia):
         materia['nombre'] = input('> ').capitalize()
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
-                print(f'Esa materia ya existe, y se encuentra en el turno {i['turno']}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto')
                 t = i['turno']
         print()
         print('Ingrese el turno de esta materia (Mañana o Tarde)')
