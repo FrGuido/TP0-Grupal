@@ -61,6 +61,7 @@ def busqueda_datos_profesores(dni):
             print(f"---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----")
             print(f"Fecha de Nacimiento : {profesor['fecha_nac']}")
             print(f"Mail : {profesor['mail']}")
+            print(f"Telefono : {profesor['telefono']}")
             listar_materias_prof(profesor['dni'])
             print('-'*20)
             break
