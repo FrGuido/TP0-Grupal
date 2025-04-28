@@ -262,10 +262,14 @@ def Carga_Materias(materia):
         t = None
         print('Ingrese el nombre de la materia:')
         materia['nombre'] = input('> ').capitalize()
+        existe = False
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
-                print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                if not existe:
+                    print(f'Esa materia ya existe, debera incluirla con un turno distinto')
+                    existe = True
                 t = i['turno']
+
         print()
         print('Ingrese el turno de esta materia (Mañana o Tarde)')
         while True:
