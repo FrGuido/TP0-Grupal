@@ -158,7 +158,7 @@ def menu_admin():
                             elec = input('(Ingrese Y o N): ').lower()
                             while True:
                                 if elec == 'y':
-                                    eliminar.eliminar_diccionario_lista_alu_prof(nombre,turno)
+                                    eliminar.eliminar_diccionario_lista_materias(nombre,turno)
                                     break
                                 elif elec == 'n':
                                     print('-'*20,'\n')
