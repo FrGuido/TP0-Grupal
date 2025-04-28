@@ -24,7 +24,7 @@ def Carga_Profesores(profe):
     print('ejemplo --> 22334455')
     print('vvv')
     while True:
-        dni = eliminar.valid_dni()
+        dni = validar.valid_dni()
         if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
             profe['dni'] = dni
             break
@@ -58,9 +58,9 @@ def busqueda_nombre_profesores(dni):
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
-            print(f"---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----")
-            print(f"Fecha de Nacimiento : {profesor['fecha_nac']}")
-            print(f"Mail : {profesor['mail']}")
+            print(f'---- Datos Profesor del {profesor['nombre']} {profesor['apellido']} ----')
+            print(f'Fecha de Nacimiento : {profesor['fecha_nac']}')
+            print(f'Mail : {profesor['mail']}')
             listar_materias_prof(profesor['dni'])
             print('-'*20)
             break
@@ -130,7 +130,7 @@ def modif_prof(elemento):
                 print()
                 print('Modificando el DNI del profesor:')
                 while True:
-                    dni = eliminar.valid_dni()
+                    dni = validar.valid_dni()
                     if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
                         profesor['dni'] = dni
                         break
@@ -210,7 +210,7 @@ def Carga_Alumnos(alumno):
 
     print('Ingrese el dni del alumno')
     while True:
-        dni = eliminar.valid_dni()
+        dni = validar.valid_dni()
         if not any(almacen_datos.alumno['dni'] == dni for x in almacen_datos.alumnos):
             alumno['dni'] = dni
             break
@@ -259,16 +259,17 @@ def elegir_curso():
 
 def Carga_Materias(materia):
     while True:
+        t = None
         print('Ingrese el nombre de la materia:')
         materia['nombre'] = input('> ').capitalize()
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
-                print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                print(f'Esa materia ya existe, y se encuentra en el turno {i['turno']}\nDesea continuar igualmente, debera incluirla con un turno distinto')
                 t = i['turno']
         print()
         print('Ingrese el turno de esta materia (Mañana o Tarde)')
         while True:
-            materia['turno'] == input('> ').capitalize()
+            materia['turno'] = input('> ').capitalize()
             if materia['turno'] not in almacen_datos.turnos:
                 print('Ingrese un turno valido\n')
             else:
@@ -304,15 +305,16 @@ def Carga_Materias(materia):
 
 def buscar_materia():
     while True:
+        elec = ''
+        materia = None
         nombre = input('Ingrese la materia\n> ').capitalize()
         turno = input('Ingrese el turno \n>').capitalize()
+
         for mat in almacen_datos.materias:
             if mat['nombre'] == nombre and mat['turno'] == turno:
                 materia = mat
                 break
-            else:
-                materia = None
-        if materia == None:
+        if materia is None:
             print(f'La materia {nombre} del turno {turno}, no existe. Desea salir o intentar nuevamente?')
             while True:
                 elec = input('Ingrese "Y" para salir y "N" para intentar de nuevo').lower()
@@ -327,10 +329,12 @@ def buscar_materia():
         if elec == 'y':
             break
 
-    if materia != None:
-        for k, valor in materia():
-            print(f"{(k.capitalize()):<15}{str(valor):>30}")
-        return nombre,turno
+        if materia is not None:
+            for k, valor in materia.items():
+                print(f"{(k.capitalize()):<15}{str(valor):>30}")
+            return nombre,turno
     
     return nombre,turno
     
+def modif_materias():
+    pass

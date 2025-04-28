@@ -192,7 +192,7 @@ def menu_admin():
                                     print('Por favor ingrese una de las dos letras indicadas')
                                     elec = input('(Ingrese Y o N): ').lower()
                             if elec == 'y':
-                                print('Desea eliminar otro?')
+                                print('Desea modificar otro?')
                                 elec = input('(Ingrese Y o N): ').lower()
                                 if elec == 'n':
                                     break
