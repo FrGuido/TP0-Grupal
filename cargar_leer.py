@@ -53,8 +53,14 @@ def Carga_Profesores(profe):
 def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
-            return profesor['nombre'] + profesor['apellido']
-    return None, None
+            nom = profesor['nombre']
+            ape = profesor['apellido']
+            break
+        else:
+            nom= None
+            ape= None
+        
+    return nom, ape
     
 
 def busqueda_datos_profesores(dni):
@@ -200,7 +206,6 @@ def modif_materias_prof(dni):
     
 
 
-
 def Carga_Alumnos(alumno):
 
     print('Ingrese el nombre del alumno')
@@ -239,7 +244,6 @@ def Carga_Alumnos(alumno):
             break
         else:
             print('Ingrese un valor valido, intente de nuevo')
-    
     print('Ingrese el curso del alumno')
     print('vvv')
     alumno['curso'] = elegir_curso()
@@ -260,18 +264,18 @@ def elegir_curso():
 
 
 
-def Carga_Materias(materia):
+def Carga_Materias(m):
+    materia = m
     while True:
-        t = None
+        t,ma = None,None
         print('Ingrese el nombre de la materia:')
         materia['nombre'] = input('> ').capitalize()
-        existe = False
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
-                if not existe:
-                    print(f'Esa materia ya existe, debera incluirla con un turno distinto')
-                    existe = True
-                t = i['turno']
+                if i['turno'] == 'Mañana':
+                    ma = i['turno']
+                elif i['turno'] == 'Tarde':
+                    t = i['turno']
 
         print()
         print('Ingrese el turno de esta materia (Mañana o Tarde)')
@@ -281,8 +285,8 @@ def Carga_Materias(materia):
                 print('Ingrese un turno valido\n')
             else:
                 break
-        if materia['turno'] == t:
-            print('Esta materia en este turno ya existe, intente de nuevo')
+        if materia['turno'] == t and materia['turno'] == ma:
+            print('Esta materia ya existe en ambos turnos, intente de nuevo')
         else:
             break
     print('Ingrese los dias que esta materia se va a cursar, limite 4')
@@ -308,7 +312,7 @@ def Carga_Materias(materia):
         if elec == 'n':
             break
     
-    return materia.copy()
+    return materia
 
 def buscar_materia():
     while True:
@@ -395,42 +399,65 @@ def modif_materias(nombre,turno):
                 while True:
                     print()
                     print('Modificando lista de profesores de la materia:')
-                    print('Estas son las materias:')
+                    print('Estas son los profesores de la materia:')
                     print(mat['profesores'])
                     print('Quieres añadir o eliminar alguna?')
                     deci = input('Ingresa A para añadir o E para eliminar').lower()
-                    if deci == 'a':
-                        while True:
-                            print('Ingrese el dni del profesor a agregar')
-                            dni = validar.valid_dni()
-                            nombre, apellido = busqueda_nombre_profesores(dni)
-                            if nombre is not None:
-                                mat['profesores'].append(nombre)
-                                break
-                            else:
-                                print('Ingrese un DNI que exista')
-                    elif deci == 'e':
-                        while True:
+                    while True:
+                        if deci == 'a':
+                            while True:
+                                print('Ingrese el dni del profesor a agregar')
+                                dni = validar.valid_dni()
+                                nombre, apellido = busqueda_nombre_profesores(dni)
+                                if nombre is not None:
+                                    mat['profesores'].append(nombre)
+                                    break
+                                else:
+                                    print('Ingrese un DNI que exista')
+                        elif deci == 'e':
+                            while True:
+                                elimina=input('Ingrese el que quiere eliminar\n> ').capitalize()
+                                if elimina in mat['profesores']:
+                                    mat['profesores'].remove(elimina)
+                                    break
+                                else:
+                                    print('Ese profesor no se encuentra en esa materia')
+                        else:
+                            print('Ingrese un valor valido')
+
+                        if deci=='a' or deci=='e':
                             break
-                    print('Apellido cambiado con exito!')
+                    print('Profesores cambiado con exito!')
                     print('-'*15)
                     break
 
             elif opcion == '3':
-                print()
-                print('Modificando el DNI del profesor:')
                 while True:
-                    dni = validar.valid_dni()
-                    if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
-                        mat['dni'] = dni
-                        break
+                    print()
+                    print('Estos son los dias que tiene la materia:')
+                    print(mat['dias'])
+                    print('Quieres añadir o eliminar alguna?')
+                    deci = input('Ingresa A para añadir o E para eliminar').lower()
+                    if deci == 'a':
+                        while True:
+                            dia = input('Ingrese el dia a añadir\n> ').capitalize()
+                            if dia in almacen_datos.dias and dia not in mat['dias']:
+                                mat['dias'].append(dia)
+                                break
+                            else:
+                                print('Ingrese un dia adecuado o que no tenga la materia ya')
+                
+                    elif deci == 'e':
+                        while True:
+                            dia = input('Ingrese el dia a eliminar\n> ').capitalize()
+                            if dia in almacen_datos.dias and dia in mat['dias']:
+                                mat['dias'].remove(dia)
+                                break
+                            else:
+                                print('Ingrese un dia adecuado o que no tenga la materia ya')
                     else:
-                        print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
-                        print()
-                print('DNI cambiado con exito!')
-                print('-'*15)
-                break
-
+                        print('Ingrese un valor adecuado')
+                        print('-'*15)
         
         if opcion == '0':
             for x in almacen_datos.materias:
