@@ -54,6 +54,8 @@ def busqueda_nombre_profesores(dni):
     for profesor in almacen_datos.profesores:
         if profesor['dni'] == dni:
             return profesor['nombre'] + profesor['apellido']
+    return None, None
+    
 
 def busqueda_datos_profesores(dni):
     for profesor in almacen_datos.profesores:
@@ -343,15 +345,11 @@ def modif_materias(nombre,turno):
                 mat = x
 
         while True:
-            opciones = 7
+            opciones = 3
             print(f'Que desea modificar?')
-            print("[1] Nombre")
-            print("[2] Apellido")
-            print("[3] DNI")
-            print("[4] Fecha de Nacimiento")
-            print("[5] Mail")
-            print("[6] Telefono")
-            print("[7] Contraseña")
+            print("[1] Nombre y Turno")
+            print("[2] Profesores")
+            print("[3] Dias")
             print("---------------------------")
             print("[0] Salir")
             print("---------------------------")
@@ -367,20 +365,51 @@ def modif_materias(nombre,turno):
                 break
 
             elif opcion == '1':
-                print()
-                print('Modificando el Nombre del profesor:')
-                profesor['nombre'] = input('> ').capitalize()
-                print('Nombre cambiado con exito!')
-                print('-'*15)
-                break
+                while True:
+                    t = None
+                    print('Ingrese el nombre de la materia para cambiar:')
+                    mat['nombre'] = input('> ').capitalize()
+                    for i in almacen_datos.materias:
+                        if i['nombre'] == mat['nombre']:
+                            print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                            t = i['turno']
+                    print()
+                    print('Ingrese el turno a cambiar de esta materia (Mañana o Tarde)')
+                    while True:
+                        mat['turno'] = input('> ').capitalize()
+                        if mat['turno'] not in almacen_datos.turnos:
+                            print('Ingrese un turno valido\n')
+                        else:
+                            break
+                    if mat['turno'] == t:
+                        print('Esta materia en este turno ya existe, intente de nuevo')
+                    else:
+                        break
 
             elif opcion == '2':
-                print()
-                print('Modificando el Apellido del profesor:')
-                profesor['apellido'] = input('> ').capitalize()
-                print('Apellido cambiado con exito!')
-                print('-'*15)
-                break
+                while True:
+                    print()
+                    print('Modificando lista de profesores de la materia:')
+                    print('Estas son las materias:')
+                    print(mat['profesores'])
+                    print('Quieres añadir o eliminar alguna?')
+                    deci = input('Ingresa A para añadir o E para eliminar').lower()
+                    if deci == 'a':
+                        while True:
+                            print('Ingrese el dni del profesor a agregar')
+                            dni = validar.valid_dni()
+                            nombre, apellido = busqueda_nombre_profesores(dni)
+                            if nombre is not None:
+                                mat['profesores'].append(nombre)
+                                break
+                            else:
+                                print('Ingrese un DNI que exista')
+                    elif deci == 'e':
+                        while True:
+                            break
+                    print('Apellido cambiado con exito!')
+                    print('-'*15)
+                    break
 
             elif opcion == '3':
                 print()
@@ -388,7 +417,7 @@ def modif_materias(nombre,turno):
                 while True:
                     dni = validar.valid_dni()
                     if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
-                        profesor['dni'] = dni
+                        mat['dni'] = dni
                         break
                     else:
                         print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
@@ -397,41 +426,10 @@ def modif_materias(nombre,turno):
                 print('-'*15)
                 break
 
-            elif opcion == '4':
-                print()
-                print('Modificando la Fecha de Nacimiento del profesor:')
-                profesor['fecha_nac'] = pedirFecha.pedirFechaNac()
-                print('Fecha de Nacimiento cambiado con exito!')
-                print('-'*15)
-                break
-            
-            elif opcion == '5':
-                print()
-                print('Modificando el Mail del profesor:')
-                profesor['mail'] = validar.valid_mail()
-                print('Mail cambiado con exito!')
-                print('-'*15)
-                break
-
-            elif opcion == '6':
-                print()
-                print('Modificando el Telefono del profesor:')
-                profesor['telefono'] = validar.valid_telefono()
-                print('Telefono cambiado con exito!')
-                print('-'*15)
-                break
-
-            elif opcion == '7':
-                print()
-                print('Modificando la Contraseña del profesor:')
-                profesor['pasw'] = validar.valid_pasw()
-                print('Contraseña cambiado con exito!')
-                print('-'*15)
-                break
         
         if opcion == '0':
-            for prof in almacen_datos.profesores:
-                if prof['dni'] == elemento:
-                    prof = profesor
+            for x in almacen_datos.materias:
+                if x['nombre'] == nombre and x['turno'] == turno:
+                    x = mat
                     break
             break

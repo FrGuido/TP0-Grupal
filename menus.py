@@ -183,7 +183,7 @@ def menu_admin():
                             elec = input('(Ingrese Y o N): ').lower()
                             while True:
                                 if elec == 'y':
-                                    eliminar.eliminar_diccionario_lista_materias(nombre,turno)
+                                    cargar_leer.modif_materias(nombre,turno)
                                     break
                                 elif elec == 'n':
                                     print('-'*20,'\n')
@@ -198,6 +198,10 @@ def menu_admin():
                                     break
                         else:
                             break
+                    
+                    
+
+
 
         elif opcion == "4":   # Opción 4 - 
             ...
