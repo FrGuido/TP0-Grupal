@@ -301,7 +301,7 @@ def Carga_Materias(materia):
         if elec == 'n':
             break
     
-    return materia
+    return materia.copy()
 
 def buscar_materia():
     while True:
