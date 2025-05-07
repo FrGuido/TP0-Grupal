@@ -28,4 +28,4 @@ def generar_profesores(cantidad=20):
 
         profesores.append(profesor)
 
-        return profesores
+    return profesores
