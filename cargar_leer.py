@@ -357,7 +357,17 @@ def Carga_Alumnos(alumno):
     # Añadir el alumno a la lista
     almacen_datos.alumnos.append(alumno)
     print("Alumno añadido con éxito.")
-    print("Lista actual de alumnos:", almacen_datos.alumnos)
+    print("\nLista actual de alumnos:")
+    for a in almacen_datos.alumnos:
+        print("-" * 60)
+        print(f"DNI: {alumno['dni']}")
+        print(f"Nombre: {alumno['nombre']} {alumno['apellido']}")
+        print(f"Fecha de nacimiento: {alumno['fecha_nac']}")
+        print(f"Curso: {alumno['curso']}")
+        print(f"Turno: {alumno['turno']}")
+        print(f"Notas: {alumno['notas']}")
+    print("-" * 60)
+
 
 def busqueda_nombre_alumnos(dni):
     for alumno in almacen_datos.alumnos:

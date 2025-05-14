@@ -29,7 +29,12 @@ def login_users():
             continue
 
         # Profesores
-        profesor = next((x for x in almacen_datos.profesores if x['dni'] == user), None)
+        profesor = None
+        for x in almacen_datos.profesores:
+            if x ['dni'] == user:
+                profesor = x
+                break
+
         if profesor:
             for _ in range(3):
                 pasww = input('Ingrese su contraseña: ')
@@ -43,7 +48,12 @@ def login_users():
             if usertype: break
 
         # Alumnos
-        alumno = next((x for x in almacen_datos.alumnos if x['dni'] == user), None)
+        alumno = None
+        for x in almacen_datos.alumnos:
+            if x['dni'] == user:
+                alumno = x
+                break
+            
         if alumno:
             for _ in range(3):
                 pasww = input('Ingrese su contraseña: ')
