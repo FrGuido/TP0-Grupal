@@ -1,6 +1,5 @@
-import cargar_leer
+from modif_objetos import profesores,alumnos,materias,eliminar
 import almacen_datos
-import eliminar
 import validar
 
 def menu_admin():
@@ -59,14 +58,14 @@ def menu_admin():
                     break
 
                 elif opcion == "1":
-                    almacen_datos.profesores.append(cargar_leer.Carga_Profesores(almacen_datos.profesor))
+                    almacen_datos.profesores.append(profesores.Carga_Profesores(almacen_datos.profesor))
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == "2":
                     while True:
                         print('Busque al Profesor por su DNI: ')
                         dni = validar.valid_dni()
-                        cargar_leer.busqueda_datos_profesores(dni)
+                        profesores.busqueda_datos_profesores(dni)
                         print('¿Este es el que desea eliminar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
@@ -79,11 +78,11 @@ def menu_admin():
                     while True:
                         print('Busque al Profesor por su DNI: ')
                         dni = validar.valid_dni()
-                        cargar_leer.busqueda_datos_profesores(dni)
+                        profesores.busqueda_datos_profesores(dni)
                         print('¿Este es el que desea modificar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
-                            cargar_leer.modif_prof(dni)
+                            profesores.modif_prof(dni)
                             print('Profesor modificado.')
                         if elec == 'n' or elec == 'y':
                             break
@@ -91,7 +90,7 @@ def menu_admin():
                 elif opcion == "4":
                     print('Busque al Profesor por su DNI: ')
                     dni = validar.valid_dni()
-                    cargar_leer.modif_materias_prof(dni)
+                    profesores.modif_materias_prof(dni)
 
         elif opcion == "2":
             # Gestión de Alumnos
@@ -123,13 +122,13 @@ def menu_admin():
 
                 elif opcion == "1":
                     nuevo_alumno = almacen_datos.alumno.copy()
-                    almacen_datos.alumnos.append(cargar_leer.Carga_Alumnos(nuevo_alumno))
+                    almacen_datos.alumnos.append(alumnos.Carga_Alumnos(nuevo_alumno))
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == "2":
                     print('Busque al Alumno por su DNI: ')
                     dni = validar.valid_dni()
-                    alumno = cargar_leer.busqueda_datos_alumnos(dni)
+                    alumno = alumnos.busqueda_datos_alumnos(dni)
                     if alumno is None:  # Verifica si no se encontró el alumno
                         print('No se encontró un alumno con ese DNI.')
                     else:
@@ -143,20 +142,20 @@ def menu_admin():
                     print("Lista actual de alumnos:", almacen_datos.alumnos)  # Depuración
                     print('Busque al Alumno por su DNI: ')
                     dni = validar.valid_dni()
-                    alumno = cargar_leer.busqueda_datos_alumnos(dni)
+                    alumno = alumnos.busqueda_datos_alumnos(dni)
                     if alumno is None:
                         print('No se encontró un alumno con ese DNI.')
                     else:
                         print('¿Este es el alumno que desea modificar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
-                            cargar_leer.modif_alumno(dni)
+                            alumnos.modif_alumno(dni)
                             print('Alumno modificado.')
 
                 elif opcion == "4":
                     print('Busque al Alumno por su DNI: ')
                     dni = validar.valid_dni()
-                    cargar_leer.ver_notas_alumno(dni)
+                    alumnos.ver_notas_alumno(dni)
 
         elif opcion == "3":
             # Gestión de Materias
@@ -186,12 +185,12 @@ def menu_admin():
                     break
 
                 elif opcion == '1':
-                    almacen_datos.materias.append(cargar_leer.Carga_Materias(almacen_datos.materia))
+                    almacen_datos.materias.append(materias.Carga_Materias(almacen_datos.materia))
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == '2':
                     print('Busque la Materia por nombre y turno')
-                    nombre, turno = cargar_leer.buscar_materia()
+                    nombre, turno = materias.buscar_materia()
                     if nombre is not None:
                         print('¿Desea eliminar esta materia?')
                         elec = input('(Ingrese Y o N): ').lower()
@@ -201,12 +200,12 @@ def menu_admin():
 
                 elif opcion == '3':
                     print('Busque la Materia por nombre y turno')
-                    nombre, turno = cargar_leer.buscar_materia()
+                    nombre, turno = materias.buscar_materia()
                     if nombre is not None:
                         print('¿Desea modificar esta materia?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
-                            cargar_leer.modif_materias(nombre, turno)
+                            materias.modif_materias(nombre, turno)
                             print('Materia modificada.')
 
         elif opcion == "4":
