@@ -1,6 +1,6 @@
 from modif_objetos import profesores,alumnos,materias,eliminar
 import almacen_datos
-import validar
+from validacion import validar
 
 def menu_admin():
     while True:

@@ -1,6 +1,6 @@
 import almacen_datos
 import eliminar
-import validar
+from validacion import validar
 import re
 
 
