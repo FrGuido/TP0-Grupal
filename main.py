@@ -1,4 +1,4 @@
-import login
+import validacion.login as login
 from modif_objetos import profesores,alumnos
 import almacen_datos
 import menus

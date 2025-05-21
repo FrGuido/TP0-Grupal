@@ -4,7 +4,11 @@ from validacion import validar
 import re
 
 
+# Carga de datos dentro del diccionario alumno
+
 def Carga_Alumnos(alumno):
+
+    #nombre del 
     print('Ingrese el nombre del alumno')
     alumno['nombre'] = (input('> ')).capitalize()
     print()
