@@ -1,6 +1,5 @@
 import almacen_datos
-import profesores
-import eliminar
+from modif_objetos import profesores,eliminar
 from validacion import validar
 import re
 

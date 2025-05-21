@@ -1,5 +1,5 @@
 import almacen_datos
-import eliminar
+from modif_objetos import eliminar
 from validacion import validar
 import re
 
@@ -8,28 +8,32 @@ import re
 
 def Carga_Alumnos(alumno):
 
-    #nombre del 
+    #nombre
     print('Ingrese el nombre del alumno')
     alumno['nombre'] = (input('> ')).capitalize()
     print()
 
+    #apellido
     print('Ingrese el apellido del alumno')
     alumno['apellido'] = (input('> ')).capitalize()
     print()
 
+    #dni
     print('Ingrese el dni del alumno')
     while True:
         dni = validar.valid_dni()
-        if not any(a['dni'] == dni for a in almacen_datos.alumnos):
+        if not any(a['dni'] == dni for a in almacen_datos.alumnos): #ANY A CAMBIAR / ERROR TYPEERROR 'NONE TYPE'
             alumno['dni'] = dni
             break
         else:
             print('Ese dni ya existe en nuestra base de datos, ingrese un dni valido')
     print()
 
+    #fecha naciemiento
     print('Ingrese la fecha de nacimiento del alumno')
     alumno['fecha_nac'] = validar.pedirFecha()
 
+    #turno (mañana o tarde)
     print('Ingrese el turno del alumno')
     while True:
         turno = input('Ingrese M (para turno Mañana) o T (para turno Tarde): ').lower()
@@ -42,6 +46,7 @@ def Carga_Alumnos(alumno):
         else:
             print('Ingrese un valor valido, intente de nuevo')
     
+    #curso
     print('Ingrese el curso del alumno')
     alumno['curso'] = elegir_curso()
 
@@ -117,7 +122,7 @@ def modif_alumno(dni):
             print("DNI actual:", alumno['dni'])
             while True:
                 nuevo_dni = validar.valid_dni()
-                if not any(a['dni'] == nuevo_dni for a in almacen_datos.alumnos if a['dni'] != dni):
+                if not any(a['dni'] == nuevo_dni for a in almacen_datos.alumnos if a['dni'] != dni): #ANY A CAMBIAR
                     alumno['dni'] = nuevo_dni
                     print("DNI modificado con éxito.")
                     break
@@ -156,7 +161,7 @@ def modif_alumno(dni):
             print("Opción inválida.")
 
 def ver_notas_alumno(dni):
-    alumno = next((a for a in almacen_datos.alumnos if a['dni'] == dni), None)
+    alumno = next((a for a in almacen_datos.alumnos if a['dni'] == dni), None) #NEXT A CAMBIAR
     if not alumno:
         print("Alumno no encontrado.")
         return
@@ -169,7 +174,7 @@ def ver_notas_alumno(dni):
             print(f"Materia: {nota[1]} - Nota: {nota[3]} - Fecha: {nota[4]}")
 
 def elegir_curso():
-    print(almacen_datos.nros_cursos, sep=' | ')
+    print(almacen_datos.nros_cursos, sep=' | ') #FROMA DE ELECCION DE CURSO A CAMBIAR
     curso = input('> ').lower()
     while True:
         if curso not in almacen_datos.nros_cursos:
