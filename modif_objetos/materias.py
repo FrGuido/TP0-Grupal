@@ -1,6 +1,6 @@
 import almacen_datos
-import profesores
-import eliminar
+from modif_objetos import profesores
+from modif_objetos import eliminar
 from validacion import validar
 import re
 
@@ -9,15 +9,33 @@ import re
 def Carga_Materias(m):
     materia = m
     while True:
-        t,ma = None,None
-        print('Ingrese el nombre de la materia:') #MODIFICAR!! hacerlo mas concreto
-        materia['nombre'] = input('> ').capitalize()
+        t, ma = None, None
+
+        # Lista de materias disponibles para elegir
+        materias_comunes = ['Matemática', 'Lengua', 'Historia', 'Geografía', 'Biología', 'Física', 'Química', 'Inglés', 'Arte']
+        
+        print('Seleccione una materia del listado:')
+        for indice, nombre in enumerate(materias_comunes, 1):
+            print(f"{indice}. {nombre}")
+
+        try:
+            opcion = int(input('> '))
+            if 1 <= opcion <= len(materias_comunes):
+                materia['nombre'] = materias_comunes[opcion - 1]
+            else:
+                print("Opción inválida. Intentá de nuevo.")
+                continue
+        except ValueError:
+            print("Entrada no válida. Ingresá un número.")
+            continue
+
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
                 if i['turno'] == 'Mañana':
                     ma = i['turno']
                 elif i['turno'] == 'Tarde':
                     t = i['turno']
+
 
 #Turnos de la materia
         print()
@@ -211,3 +229,4 @@ def modif_materias(nombre,turno):
                     x = mat
                     break
             break
+
