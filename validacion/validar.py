@@ -71,4 +71,13 @@ def añoBisiesto(año): #verificacion si el año es bisiesto o no
         else:
             return True
     else:
-        return False
+        return 
+    
+def valid_nombre():
+    while True:
+        validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ]'
+        nombre = input("> ")
+        if re.match(validez, nombre) is not None:
+            return nombre
+        else:
+            print("Formato de nombre inválido. Intente nuevamente.\n")

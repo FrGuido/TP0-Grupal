@@ -7,7 +7,7 @@ import re
 def Carga_Profesores(profe):
 
     print('Ingrese el nombre del profesor')
-    profe['nombre'] = (input('> ')).capitalize()
+    profe['nombre'] = validar.valid_nombre()
     print()
 
     print('Ingrese el apellido del profesor')

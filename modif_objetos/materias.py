@@ -9,6 +9,7 @@ def Carga_Materias(m):
     materia = m
     while True:
         t,ma = None,None
+        print("-"*23)
         print('Ingrese el nombre de la materia:')
         materia['nombre'] = input('> ').capitalize()
         for i in almacen_datos.materias:
