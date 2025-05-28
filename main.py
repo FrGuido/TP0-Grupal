@@ -5,14 +5,12 @@ import menus
 import random_test
 
 def Bienvenida():
-    print("""------------- Bienvenido al sistema de alumnado ------------- 
->Identifiquese
-""")
+
+    almacen_datos.menu_bien()
+
     tipo, dni = login.login_users()
 
     if tipo == 'admin':
-        print(f""" Bienvenido Administrador
-    """)
         menus.menu_admin()
 
     elif tipo == 'p':
@@ -31,7 +29,6 @@ def Bienvenida():
             print(f""" Bienvenido {nombre_alumno}
     """)
 
-almacen_datos.profesores = random_test.generar_profesores(20)
-print(almacen_datos.profesores)
+random_test.imprimir_json()
 print('\n'*6)
 Bienvenida()

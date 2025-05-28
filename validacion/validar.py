@@ -52,7 +52,7 @@ def pedirFecha():
                 diasMes = [31, 29 if bisiesto else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] #lista de dias de meses, con febrero arreglado
 
                 if 1 <= mes <= 12 and 1 <= dia <= diasMes[mes - 1]:
-                    print("Fecha válida.")
+                    #print("Fecha válida.")
                     return (f'{dia}/{mes}/{año}')
                 else:
                     print("Fecha inválida. Día o mes fuera de rango.")
