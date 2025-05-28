@@ -5,12 +5,12 @@ from validacion import validar
 import re
 
 
-
+#Carga de materias
 def Carga_Materias(m):
     materia = m
     while True:
         t,ma = None,None
-        print('Ingrese el nombre de la materia:')
+        print('Ingrese el nombre de la materia:') #MODIFICAR!! hacerlo mas concreto
         materia['nombre'] = input('> ').capitalize()
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
@@ -19,16 +19,17 @@ def Carga_Materias(m):
                 elif i['turno'] == 'Tarde':
                     t = i['turno']
 
+#Turnos de la materia
         print()
-        print('Ingrese el turno de esta materia (Mañana o Tarde)')
+        print('Ingrese el turno de esta materia (Mañana o Tarde)') #MODIFICAR!! hacerlo mas concreto
         while True:
             materia['turno'] = input('> ').capitalize()
             if materia['turno'] not in almacen_datos.turnos:
-                print('Ingrese un turno valido\n')
+                print('Ingrese un turno valido\n') 
             else:
                 break
         if materia['turno'] == t and materia['turno'] == ma:
-            print('Esta materia ya existe en ambos turnos, intente de nuevo')
+            print('Esta materia ya existe en ambos turnos, intente de nuevo') #Validacion de turnos, verifica si se repite
         else:
             break
     print('Ingrese los dias que esta materia se va a cursar, limite 4')
@@ -63,12 +64,12 @@ def buscar_materia():
         nombre = input('Ingrese la materia\n> ').capitalize()
         turno = input('Ingrese el turno \n>').capitalize()
 
-        for mat in almacen_datos.materias:
-            if mat['nombre'] == nombre and mat['turno'] == turno:
-                materia = mat
+        for mat in almacen_datos.materias: #Recorre la lista de materias
+            if mat['nombre'] == nombre and mat['turno'] == turno: #Verifica si hay coincidencias
+                materia = mat #Se guarda la materia
                 break
         if materia is None:
-            print(f'La materia {nombre} del turno {turno}, no existe. Desea salir o intentar nuevamente?')
+            print(f'La materia {nombre} del turno {turno}, no existe. Desea salir o intentar nuevamente?') #Mensaje de error
             while True:
                 elec = input('Ingrese "Y" para salir y "N" para intentar de nuevo').lower()
                 if elec == 'y':
@@ -115,28 +116,30 @@ def modif_materias(nombre,turno):
             if opcion == '0':
                 break
 
+            #Opcion 1
             elif opcion == '1':
                 while True:
                     t = None
                     print('Ingrese el nombre de la materia para cambiar:')
                     mat['nombre'] = input('> ').capitalize()
-                    for i in almacen_datos.materias:
+                    for i in almacen_datos.materias: #Recorre la lista, verifica si ya se encuentra guardada
                         if i['nombre'] == mat['nombre']:
-                            print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto')
+                            print(f'Esa materia ya existe, y se encuentra en el turno {i["turno"]}\nDesea continuar igualmente, debera incluirla con un turno distinto') #mensaje de error
                             t = i['turno']
                     print()
-                    print('Ingrese el turno a cambiar de esta materia (Mañana o Tarde)')
+                    print('Ingrese el turno a cambiar de esta materia (Mañana o Tarde)') #Opciones en caso de continuar
                     while True:
-                        mat['turno'] = input('> ').capitalize()
+                        mat['turno'] = input('> ').capitalize() #MODIFICAR!! hacerlo mas concreto
                         if mat['turno'] not in almacen_datos.turnos:
                             print('Ingrese un turno valido\n')
                         else:
                             break
                     if mat['turno'] == t:
-                        print('Esta materia en este turno ya existe, intente de nuevo')
+                        print('Esta materia en este turno ya existe, intente de nuevo') #Mensaje de error
                     else:
                         break
 
+            #Opcion 2
             elif opcion == '2':
                 while True:
                     print()
@@ -145,34 +148,35 @@ def modif_materias(nombre,turno):
                     print(mat['profesores'])
                     print('Quieres añadir o eliminar alguna?')
                     deci = input('Ingresa A para añadir o E para eliminar').lower()
-                    while True:
+                    while True: 
                         if deci == 'a':
                             while True:
                                 print('Ingrese el dni del profesor a agregar')
-                                dni = validar.valid_dni()
+                                dni = validar.valid_dni() #Validacion de dni
                                 nombre, apellido = profesores.busqueda_nombre_profesores(dni)
                                 if nombre is not None:
                                     mat['profesores'].append(nombre)
                                     break
                                 else:
-                                    print('Ingrese un DNI que exista')
+                                    print('Ingrese un DNI que exista') #Mensaje de error
                         elif deci == 'e':
                             while True:
-                                elimina=input('Ingrese el que quiere eliminar\n> ').capitalize()
+                                elimina=input('Ingrese el que quiere eliminar\n> ').capitalize() 
                                 if elimina in mat['profesores']:
-                                    mat['profesores'].remove(elimina)
+                                    mat['profesores'].remove(elimina) #Elimina el profesor
                                     break
                                 else:
-                                    print('Ese profesor no se encuentra en esa materia')
+                                    print('Ese profesor no se encuentra en esa materia') #Mensaje de error
                         else:
-                            print('Ingrese un valor valido')
+                            print('Ingrese un valor valido') #Mensaje de error
 
                         if deci=='a' or deci=='e':
                             break
-                    print('Profesores cambiado con exito!')
+                    print('Profesores cambiado con exito!') #Mensaje de validacion
                     print('-'*15)
                     break
 
+            #Opcion 3
             elif opcion == '3':
                 while True:
                     print()

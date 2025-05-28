@@ -1,5 +1,5 @@
 import almacen_datos
-import eliminar
+from modif_objetos import eliminar
 from validacion import validar
 import re
 

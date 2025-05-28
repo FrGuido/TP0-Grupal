@@ -1,20 +1,22 @@
-import login
+from validacion import login
 from modif_objetos import profesores,alumnos
 import almacen_datos
 import menus
 import random_test
 
-def Bienvenida():
+def Bienvenida(): #Mensaje de bienvenida
     print("""------------- Bienvenido al sistema de alumnado ------------- 
->Identifiquese
-""")
-    tipo, dni = login.login_users()
+>Identifiquese 
+""") 
+    tipo, dni = login.login_users() 
 
+#validacion segun usuario
     if tipo == 'admin':
         print(f""" Bienvenido Administrador
     """)
         menus.menu_admin()
 
+#usuarios no encontrados
     elif tipo == 'p':
         nombre_profesor = profesores.busqueda_nombre_profesores(dni)
         if nombre_profesor is None:
