@@ -1,7 +1,8 @@
 import random
 import string
+import json
 
-def generar_profesores(cantidad=20):
+def generar_profesores(cantidad=10):
     nombres = ['Juan', 'María', 'Luis', 'Ana', 'Carlos', 'Laura', 'Pedro', 'Lucía', 'José', 'Camila']
     apellidos = ['Gómez', 'Pérez', 'Fernández', 'López', 'Martínez', 'Díaz', 'Sánchez', 'Ramírez']
     
@@ -28,5 +29,15 @@ def generar_profesores(cantidad=20):
 
         profesores.append(profesor)
 
-    return profesores
+    with open("profesores.json", "w", encoding="utf-8") as j:
+        json.dump(profesores,j ,indent=7, ensure_ascii=False)
 
+
+def imprimir_json():
+    with open("profesores.json","r",encoding="utf-8") as j:
+        datos = json.load(j)
+        for i in datos:
+            print(i)
+        
+
+#generar_profesores()

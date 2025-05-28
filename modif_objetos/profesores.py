@@ -7,22 +7,18 @@ import re
 def Carga_Profesores(profe):
 
     print('Ingrese el nombre del profesor')
-    print('vvv')
-    profe['nombre'] = (input('> ')).capitalize()
+    profe['nombre'] = validar.valid_nombre()
     print()
 
     print('Ingrese el apellido del profesor')
-    print('vvv')
     profe['apellido'] = (input('> ')).capitalize()
     print()
 
     print('Ingrese la fecha de nacimiento del profesor')
-    print('vvv')
     profe['fecha_nac'] = validar.pedirFecha()
 
     print('Ingrese el dni del profesor')
     print('ejemplo --> 22334455')
-    print('vvv')
     while True:
         dni = validar.valid_dni()
         if not any(almacen_datos.profesor['dni'] == dni for x in almacen_datos.profesores):
@@ -34,16 +30,13 @@ def Carga_Profesores(profe):
 
     print('Ingrese el mail del profesor')
     print('ejemplo --> nombreprofe@ejemplo.com')
-    print('vvv')
     profe['mail'] = validar.valid_mail()
 
     print('Ingrese el telefono del profesor')
     print('ejemplo --> 1122334455')
-    print('vvv')
     profe['telefono'] = validar.valid_telefono()
 
     print('Ingrese una contraseña para el profesor')
-    print('vvv')
     profe['pasw'] = validar.valid_pasw()
     print()
 

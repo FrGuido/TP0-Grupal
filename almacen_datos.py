@@ -61,3 +61,11 @@ profesor = {
     'mail':str(),
     'telefono':int()
 }
+
+def menu_bien():
+    print('\n'*10)
+    print(f'{" Bienvenido al sistema de alumnado © ":-^58}')
+    print(f'{"Trabajo Practico - Programacion 1":^58}')
+    print(f'{"Grupo 10":^58}')
+    print(f'{" - "*15:^58}')
+    print('\n'*5)

@@ -1,19 +1,17 @@
-from validacion import login
+from validacion from validacion import login
 from modif_objetos import profesores,alumnos
 import almacen_datos
 import menus
 import random_test
 
-def Bienvenida(): #Mensaje de bienvenida
-    print("""------------- Bienvenido al sistema de alumnado ------------- 
->Identifiquese 
-""") 
-    tipo, dni = login.login_users() 
+def Bienvenida():
+
+    almacen_datos.menu_bien()
+
+    tipo, dni = login.login_users()
 
 #validacion segun usuario
     if tipo == 'admin':
-        print(f""" Bienvenido Administrador
-    """)
         menus.menu_admin()
 
 #usuarios no encontrados
@@ -33,7 +31,6 @@ def Bienvenida(): #Mensaje de bienvenida
             print(f""" Bienvenido {nombre_alumno}
     """)
 
-almacen_datos.profesores = random_test.generar_profesores(20)
-print(almacen_datos.profesores)
+random_test.imprimir_json()
 print('\n'*6)
 Bienvenida()

@@ -1,6 +1,7 @@
 import almacen_datos
 from modif_objetos import profesores
 from modif_objetos import eliminar
+from modif_objetos import profesores,eliminar
 from validacion import validar
 import re
 
@@ -29,6 +30,10 @@ def Carga_Materias(m):
             print("Entrada no válida. Ingresá un número.")
             continue
 
+        t,ma = None,None
+        print("-"*23)
+        print('Ingrese el nombre de la materia:')
+        materia['nombre'] = input('> ').capitalize()
         for i in almacen_datos.materias:
             if i['nombre'] == materia['nombre']:
                 if i['turno'] == 'Mañana':

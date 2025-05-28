@@ -24,7 +24,7 @@ def valid_pasw():
     print('La contraseña debe tener al menos un carcter en mayuscula,\nun numero, un simbolo y al menos 10 caracteres')
     while True:
         contra = input('> ')
-        if len(contra) < 10 or not re.search(r'[A-Z]',contra) or not re.search(r'\d', contra) or not re.search(r'\d', contra): #Requisitos de contrasenia
+        if len(contra) < 10 or not re.search(r'[A-Z]',contra) or not re.search(r'\d', contra) or not re.search(r'[^A-Za-z0-9]', contra):
             print('Contraseña no valida, intente de nuevo')
         else:
             print('Contraseña valida')
@@ -57,7 +57,7 @@ def pedirFecha():
                 diasMes = [31, 29 if bisiesto else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] #lista de dias de meses, con febrero arreglado
 
                 if 1 <= mes <= 12 and 1 <= dia <= diasMes[mes - 1]:
-                    print("Fecha válida.")
+                    #print("Fecha válida.")
                     return (f'{dia}/{mes}/{año}')
                 else:
                     print("Fecha inválida. Día o mes fuera de rango.")
@@ -76,4 +76,13 @@ def añoBisiesto(año): #verificacion si el año es bisiesto o no
         else:
             return True
     else:
-        return False
+        return 
+    
+def valid_nombre():
+    while True:
+        validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ]'
+        nombre = input("> ")
+        if re.match(validez, nombre) is not None:
+            return nombre
+        else:
+            print("Formato de nombre inválido. Intente nuevamente.\n")
