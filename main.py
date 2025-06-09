@@ -1,8 +1,9 @@
-from validacion from validacion import login
+from validacion import login
 from modif_objetos import profesores,alumnos
 import almacen_datos
 import menus
 import random_test
+from modif_objetos import materias
 
 def Bienvenida():
 
@@ -31,6 +32,9 @@ def Bienvenida():
             print(f""" Bienvenido {nombre_alumno}
     """)
 
-random_test.imprimir_json()
+
 print('\n'*6)
 Bienvenida()
+materias.Carga_Materias()
+input('Cargado! Ingrese "Enter" para volver al menú anterior')
+random_test.imprimir_json()

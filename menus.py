@@ -58,33 +58,43 @@ def menu_admin():
                     break
 
                 elif opcion == "1":
-                    almacen_datos.profesores.append(profesores.Carga_Profesores(almacen_datos.profesor))
+                    profesores.Carga_Profesores()
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == "2":
                     while True:
                         print('Busque al Profesor por su DNI: ')
                         dni = validar.valid_dni()
-                        profesores.busqueda_datos_profesores(dni)
+                        prof_encontrado = profesores.busqueda_datos_profesores(dni)
+                        if prof_encontrado is None:
+                            print('No se encontró un profesor con ese DNI.')
+                            break
                         print('¿Este es el que desea eliminar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
-                            eliminar.eliminar_diccionario_lista_alu_prof(almacen_datos.profesores, dni)
+                            lista_profes = profesores.cargar_profesores()
+                            lista_profes = [p for p in lista_profes if p['dni'] != dni]
+                            profesores.guardar_profesores(lista_profes)
                             print('Profesor eliminado.')
-                        if elec == 'n' or elec == 'y':
+                            break
+                        if elec == 'n':
                             break
 
                 elif opcion == "3":
                     while True:
                         print('Busque al Profesor por su DNI: ')
                         dni = validar.valid_dni()
-                        profesores.busqueda_datos_profesores(dni)
+                        prof_encontrado = profesores.busqueda_datos_profesores(dni)
+                        if prof_encontrado is None:
+                            print('No se encontró un profesor con ese DNI.')
+                            break
                         print('¿Este es el que desea modificar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
                             profesores.modif_prof(dni)
                             print('Profesor modificado.')
-                        if elec == 'n' or elec == 'y':
+                            break
+                        if elec == 'n':
                             break
 
                 elif opcion == "4":
@@ -121,29 +131,30 @@ def menu_admin():
                     break
 
                 elif opcion == "1":
-                    nuevo_alumno = almacen_datos.alumno.copy()
-                    almacen_datos.alumnos.append(alumnos.Carga_Alumnos(nuevo_alumno))
+                    alumnos.Carga_Alumnos()
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == "2":
                     print('Busque al Alumno por su DNI: ')
                     dni = validar.valid_dni()
-                    alumno = alumnos.busqueda_datos_alumnos(dni)
-                    if alumno is None:  # Verifica si no se encontró el alumno
+                    alumno_encontrado = alumnos.busqueda_datos_alumnos(dni)
+                    if alumno_encontrado is None:
                         print('No se encontró un alumno con ese DNI.')
                     else:
                         print('¿Este es el alumno que desea eliminar?')
                         elec = input('(Ingrese Y o N): ').lower()
                         if elec == 'y':
-                            eliminar.eliminar_diccionario_lista_alu_prof(almacen_datos.alumnos, dni)
+                            # Eliminar alumno del JSON
+                            lista_alumnos = alumnos.cargar_alumnos()
+                            lista_alumnos = [a for a in lista_alumnos if a['dni'] != dni]
+                            alumnos.guardar_alumnos(lista_alumnos)
                             print('Alumno eliminado.')
 
                 elif opcion == "3":
-                    print("Lista actual de alumnos:", almacen_datos.alumnos)  # Depuración
                     print('Busque al Alumno por su DNI: ')
                     dni = validar.valid_dni()
-                    alumno = alumnos.busqueda_datos_alumnos(dni)
-                    if alumno is None:
+                    alumno_encontrado = alumnos.busqueda_datos_alumnos(dni)
+                    if alumno_encontrado is None:
                         print('No se encontró un alumno con ese DNI.')
                     else:
                         print('¿Este es el alumno que desea modificar?')
@@ -185,7 +196,7 @@ def menu_admin():
                     break
 
                 elif opcion == '1':
-                    almacen_datos.materias.append(materias.Carga_Materias(almacen_datos.materia))
+                    materias.Carga_Materias()
                     input('Cargado! Ingrese "Enter" para volver al menú anterior')
 
                 elif opcion == '2':
@@ -199,6 +210,14 @@ def menu_admin():
                             print('Materia eliminada.')
 
                 elif opcion == '3':
+                    # Mostrar todas las materias antes de pedir datos
+                    print('\nMaterias disponibles:')
+                    lista_materias = materias.cargar_materias()
+                    if not lista_materias:
+                        print("No hay materias cargadas.")
+                    else:
+                        for m in lista_materias:
+                            print(f"- {m['nombre']} | Turno: {m['turno']}")
                     print('Busque la Materia por nombre y turno')
                     nombre, turno = materias.buscar_materia()
                     if nombre is not None:

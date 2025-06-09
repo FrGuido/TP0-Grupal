@@ -1,0 +1,25 @@
+[
+    {
+        "nombre": "Matemática",
+        "profesores": [
+            "Lucas Eduardo"
+        ],
+        "dias": [
+            "Lunes",
+            "Miércoles"
+        ],
+        "turno": "Mañana"
+    },
+    {
+        "nombre": "Lengua",
+        "profesores": [
+            "Ana Martínez"
+        ],
+        "dias": [
+            "Martes",
+            "Jueves",
+            "Miercoles"
+        ],
+        "turno": "Tarde"
+    }
+]

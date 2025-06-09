@@ -1,0 +1,46 @@
+[
+    {
+        "dni": 40123455,
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "fecha_nac": 20010523,
+        "curso": "3ero",
+        "turno": "Mañana",
+        "notas": [],
+        "materias": [],
+        "pasw": "abc12345"
+    },
+    {
+        "dni": 40234567,
+        "nombre": "María",
+        "apellido": "García",
+        "fecha_nac": 20020415,
+        "curso": "2do",
+        "truno": "Tarde",
+        "notas": [],
+        "materias": [],
+        "pasw": "def67890"
+    },
+    {
+        "dni": 40345678,
+        "nombre": "Pedro",
+        "apellido": "López",
+        "fecha_nac": 20030310,
+        "curso": "1ero",
+        "truno": "Mañana",
+        "notas": [],
+        "materias": [],
+        "pasw": "ghi13579"
+    },
+    {
+        "dni": 40456789,
+        "nombre": "Lucía",
+        "apellido": "Martínez",
+        "fecha_nac": 20011230,
+        "curso": "4to",
+        "truno": "Tarde",
+        "notas": [],
+        "materias": [],
+        "pasw": "jkl24680"
+    }
+]
