@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Polisia",
+    "profesores": [
+      [
+        44338568,
+        "Franco"
+      ]
+    ],
+    "codigo": "MA888"
+  },
+  {
+    "nombre": "Coca",
+    "profesores": [
+      [
+        22331144,
+        "Roncho"
+      ]
+    ],
+    "codigo": "RA983"
+  },
+  {
+    "nombre": "Matematica",
+    "profesores": [
+      [
+        44556677,
+        "Ufjydt"
+      ]
+    ],
+    "codigo": "OP112"
+  }
+]

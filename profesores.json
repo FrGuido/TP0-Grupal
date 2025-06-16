@@ -1,92 +1,29 @@
 [
-       {
-              "dni": 42914842,
-              "nombre": "Luis",
-              "fecha_nac": 19775930,
-              "apellido": "Martínez",
-              "pasw": "OnGYzAZV",
-              "mail": "luis.martínez@mail.com",
-              "telefono": 1126770287
-       },
-       {
-              "dni": 39875886,
-              "nombre": "Pedro",
-              "fecha_nac": 19644082,
-              "apellido": "Fernández",
-              "pasw": "4KfFrppR",
-              "mail": "pedro.fernández@mail.com",
-              "telefono": 1176559603
-       },
-       {
-              "dni": 20591933,
-              "nombre": "Ana",
-              "fecha_nac": 19791394,
-              "apellido": "Martínez",
-              "pasw": "cvwx0Ter",
-              "mail": "ana.martínez@mail.com",
-              "telefono": 1125655127
-       },
-       {
-              "dni": 37085364,
-              "nombre": "María",
-              "fecha_nac": 19823654,
-              "apellido": "Gómez",
-              "pasw": "9cAfJ0yT",
-              "mail": "maría.gómez@mail.com",
-              "telefono": 1154582202
-       },
-       {
-              "dni": 42969500,
-              "nombre": "Pedro",
-              "fecha_nac": 19658860,
-              "apellido": "Díaz",
-              "pasw": "7PlKeFWl",
-              "mail": "pedro.díaz@mail.com",
-              "telefono": 1177908686
-       },
-       {
-              "dni": 19246550,
-              "nombre": "José",
-              "fecha_nac": 19833276,
-              "apellido": "Pérez",
-              "pasw": "v9MovnAe",
-              "mail": "josé.pérez@mail.com",
-              "telefono": 1158962024
-       },
-       {
-              "dni": 34015297,
-              "nombre": "Ana",
-              "fecha_nac": 19915717,
-              "apellido": "Pérez",
-              "pasw": "IY4dvLOF",
-              "mail": "ana.pérez@mail.com",
-              "telefono": 1180492308
-       },
-       {
-              "dni": 39914614,
-              "nombre": "Pedro",
-              "fecha_nac": 19894605,
-              "apellido": "Martínez",
-              "pasw": "23qavod9",
-              "mail": "pedro.martínez@mail.com",
-              "telefono": 1192753601
-       },
-       {
-              "dni": 47629847,
-              "nombre": "Lucía",
-              "fecha_nac": 19874787,
-              "apellido": "Gómez",
-              "pasw": "wten8x5z",
-              "mail": "lucía.gómez@mail.com",
-              "telefono": 1137957279
-       },
-       {
-              "dni": 22551299,
-              "nombre": "Luis",
-              "fecha_nac": 20019436,
-              "apellido": "Fernández",
-              "pasw": "Qfwk1C3o",
-              "mail": "luis.fernández@mail.com",
-              "telefono": 1184060720
-       }
+  {
+    "nombre": "Franco",
+    "apellido": "Guido",
+    "fecha_nacimiento": "28/6/2002",
+    "dni": 44338568,
+    "mail": "francoguido0@hotmail.com",
+    "telefono": "1122639733",
+    "pasw": "MiChoTIto_200"
+  },
+  {
+    "nombre": "Roncho",
+    "apellido": "Wiiido",
+    "fecha_nacimiento": "28/8/1956",
+    "dni": 22331144,
+    "mail": "rosho@micho.com",
+    "telefono": "1133225566",
+    "pasw": "Gogomari_234"
+  },
+  {
+    "nombre": "Franco",
+    "apellido": "Rojo",
+    "fecha_nacimiento": "28/6/2002",
+    "dni": 99223311,
+    "mail": "wiwi@wi.com",
+    "telefono": "1133445566",
+    "pasw": "jorgERial_21"
+  }
 ]

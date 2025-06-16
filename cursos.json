@@ -1,0 +1,102 @@
+[
+  {
+    "nombre": "1ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "2do",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "3ro",
+    "max alumnos": 29,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "4to",
+    "max alumnos": 35,
+    "alumnos": [
+      {
+        "nombre": "Momo",
+        "apellido": "Roro",
+        "fecha_nacimiento": "9/8/1980",
+        "dni": 11223344,
+        "etapa": "Primario",
+        "turno": "Tarde",
+        "telefono": "1166557744",
+        "pasw": "Pedtio_oa20"
+      }
+    ],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "5to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "6to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "1ro",
+    "max alumnos": 28,
+    "alumnos": [],
+    "materias": [
+      [
+        "BC988",
+        "Mate"
+      ]
+    ],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "2do",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "3ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "4to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "5to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "6to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  }
+]
