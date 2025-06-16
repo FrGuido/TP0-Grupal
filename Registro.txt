@@ -1,8 +1,0 @@
-('AGREGADO', 'Nota', 'Franco - 44338568', 'Momo - 11223344', '8.0', 'Sun Jun 15 20:46:09 2025')
-('AGREGADO', 'Nota', 'Franco - 44338568', 'Momo - 11223344', '9.6', 'Sun Jun 15 20:49:07 2025')
-('MODIFICADO', 'Nota', 'Franco - 44338568', 'Momo - 11223344', '10.0', 'Sun Jun 15 20:49:24 2025')
-('AGREGADO', 'Materia', 'Matematica', '--', 'OP112', 'Sun Jun 15 21:15:08 2025')
-('MODIFICADO', 'Nota', 'Franco - 44338568', 'Momo - 11223344', '6.0', 'Sun Jun 15 23:27:21 2025')
-('ELIMINADO', 'Profesor', 'Ufjydt', 'Kfjkf', 44556677, 'Sun Jun 15 23:29:49 2025')
-('ELIMINADO', 'Materia', 'Matermatica', '--', 'BC988', 'Sun Jun 15 23:44:48 2025')
-('ELIMINADO', 'Materia', 'Quimica', '--', 'MA909', 'Sun Jun 15 23:50:07 2025')
