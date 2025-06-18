@@ -55,7 +55,16 @@
   {
     "nombre": "1ro",
     "max alumnos": 28,
-    "alumnos": [],
+    "alumnos": [
+      {
+        "nombre": "Fra",
+        "apellido": "Gui",
+        "fecha_nacimiento": "28/5/2002",
+        "dni": 11002200,
+        "telefono": "1122334455",
+        "pasw": "ProfeNoDeaspruebes_29"
+      }
+    ],
     "materias": [
       [
         "BC988",

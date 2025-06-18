@@ -35,7 +35,7 @@ def opciones_principal_profesor(contador = 0):
     opcion = input("Seleccione una opción: ")
     if opcion not in [str(i) for i in range(0, opciones + 1)]:
         input("Opción inválida. Presione ENTER para volver a seleccionar.")
-        return opciones_principal_admin(contador + 1)
+        return opciones_principal_profesor(contador + 1)
     print()
     return opcion
 
@@ -58,7 +58,7 @@ def opciones_principal_alumno(contador = 0):
     opcion = input("Seleccione una opción: ")
     if opcion not in [str(i) for i in range(0, opciones + 1)]:
         input("Opción inválida. Presione ENTER para volver a seleccionar.")
-        return opciones_principal_admin(contador + 1)
+        return opciones_principal_alumno(contador + 1)
     print()
     return opcion
 
@@ -100,7 +100,7 @@ def opciones_profesores(intentos = 0, max_intentos = 5):
     print("[2] Eliminar Profesor")
     print("[3] Modificar Profesor")
     print("[4] Lista Profesores")
-    print("[5] Busar datos Profesor")
+    print("[5] Buscar datos Profesor")
     print("---------------------------")
     print("[0] Volver al menú anterior")
     print("---------------------------")
