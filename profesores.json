@@ -35,4 +35,13 @@
     "telefono": "1144223322",
     "pasw": "PepeJorge_21"
   }
+  {
+    "nombre": "Messi",
+    "apellido": "Messiano",
+    "fecha_nacimiento": "24/06/2003",
+    "dni": 60477777,
+    "mail": "river@gmail.com",
+    "telefono": "1155667700",
+    "pasw": "goku123"
+  }
 ]

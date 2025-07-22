@@ -1,32 +1,40 @@
 [
   {
-    "nombre": "Polisia",
+    "nombre": "Matemática",
     "profesores": [
-      [
-        44338568,
-        "Franco"
-      ]
+      [44338568, "Franco"],
+      [33442233, "Martin"]
     ],
-    "codigo": "MA888"
+    "codigo": "MA101"
   },
   {
-    "nombre": "Coca",
+    "nombre": "Química",
     "profesores": [
-      [
-        22331144,
-        "Roncho"
-      ]
+      [22331144, "Roncho"]
     ],
-    "codigo": "RA983"
+    "codigo": "QU202"
   },
   {
-    "nombre": "Matematica",
+    "nombre": "Física",
     "profesores": [
-      [
-        44556677,
-        "Ufjydt"
-      ]
+      [99223311, "Franco"]
     ],
-    "codigo": "OP112"
+    "codigo": "FI303"
+  },
+  {
+    "nombre": "Historia",
+    "profesores": [
+      [33442233, "Martin"],
+      [22331144, "Roncho"]
+    ],
+    "codigo": "HI404"
+  },
+  {
+    "nombre": "Educación Física",
+    "profesores": [
+      [60477777, "Messi"],
+      [22331144, "Roncho"]
+    ],
+    "codigo": "GO477"
   }
 ]
