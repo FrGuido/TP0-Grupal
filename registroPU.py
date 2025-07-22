@@ -33,9 +33,9 @@ def registrar_modificadoPU(tipo, nombre, apellido, dni):
 def leer_modificacionesPU():
     try:
         with open("RegistroPU.txt", "r", encoding="utf-8") as archivo:
-            contenido = archivo.readlines()
-            for linea in contenido:
+            for linea in archivo:
                 linea = linea.strip()
+
 
                 if linea.startswith("(") and linea.endswith(")"):
                     linea = linea[1:-1]
