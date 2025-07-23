@@ -54,7 +54,7 @@
   },
   {
     "nombre": "1ro",
-    "max alumnos": 28,
+    "max alumnos": 30,
     "alumnos": [
       {
         "nombre": "Fra",
@@ -63,12 +63,25 @@
         "dni": 11002200,
         "telefono": "1122334455",
         "pasw": "ProfeNoDeaspruebes_29"
+      },
+      {
+        "nombre": "Martino",
+        "apellido": "Jaro",
+        "fecha_nacimiento": "1/1/2001",
+        "dni": 12344321,
+        "telefono": "1112344321",
+        "pasw": "M4rt1n0UADE.",
+        "mail": "martino@hotmail.com"
       }
     ],
     "materias": [
       [
         "BC988",
         "Mate"
+      ],
+      [
+        "QU202",
+        "Química"
       ]
     ],
     "turno": "Mañana"
