@@ -272,5 +272,3 @@ def tipo_archivo(arch):
         return None
 
 
-
-

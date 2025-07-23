@@ -33,8 +33,7 @@ def registrar_modificado(tipo, nombre, apellido, dni):
 def leer_modificaciones():
     try:
         with open("Registro.txt", "r", encoding="utf-8") as archivo:
-            contenido = archivo.readlines()
-            for linea in contenido:
+            for linea in archivo:
                 linea = linea.strip()
 
                 if linea.startswith("(") and linea.endswith(")"):

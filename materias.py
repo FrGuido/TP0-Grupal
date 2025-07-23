@@ -12,6 +12,47 @@ import json
 archivo  = "materias.json"
 
 
+def prof_acargo():
+    if validar.valid_archivo(archivo):
+        print('(Solo se pueden añadir profesores con menos de 3 materias asignadas)')
+        profes = []
+        disp = menu_texto.lista_profesores_disponibles()
+        contador = 0
+        if disp != []:
+            while True:
+                try:
+                    if contador == 5:
+                        print('Ha llegado al limite de profesores')
+                        input('Presione Enter para salir')
+                        break
+                    verif = False
+                    print('\nIngresa el DNI del profesor que deseas añadir')
+                    p = validar.valid_formato_dni()
+                    for i in profes:
+                        if p in i:
+                            print('Ese profe ya se encuentra en esta materia, elija otro')
+                            verif = True
+                            break
+                    if not verif:
+                        for i in disp:
+                            if p in i:
+                                profes.append(i)
+                                contador += 1
+                                break
+                        else:
+                            print('Ingrese un profesor disponible')
+                        print('Desea ingresar un profesor nuevo?')
+                        if menu_texto.confirmacion_user() == 'n':
+                            break
+                except:
+                    print('Ingrese numeros')      
+            return profes
+        else:
+            print('No se han encontrado profesores disponibles\nlibere a alguno y edite la materia')
+            return []
+    else:
+        menu_texto.error_archivo()
+
 def cargar_esqueleto():
     mat={}
     print("\n" + "=" * 50)
@@ -45,9 +86,10 @@ def crear_materia():
         validar.cargar_archivo_json(archivo, datos)
         print('='*50)
         input('Se ha ingresado correctamente la materia\nPresione una tecla para continuar')
-
+        input('Presione Enter para volver al menú de gestión de materias')
     else:
         menu_texto.error_archivo()
+        input('Presione Enter para volver al menú de gestión de materias')
 
 def modificar_materia():
     if validar.valid_archivo(archivo):
@@ -70,6 +112,7 @@ def modificar_materia():
                             if opcion == '0':
                                 registro.registrar_modificado("Materia", i['nombre'],'--',i['codigo'])
                                 validar.cargar_archivo_json(archivo,datos)
+                                input('Presione Enter para volver al menú de gestión de materias')
                                 return
 
                             elif opcion == '1':
@@ -85,61 +128,12 @@ def modificar_materia():
                                 i['profesores'] = modificar_prof_acargo(i['profesores'])
                 else:
                     print('Codigo no encontrado, Intente nuevamente')
-
-
             except ValueError:
                 print('Ingrese numeros')
                 print('\n----------\n')
     else:
         menu_texto.error_archivo()
-
-
-
-
-def prof_acargo():
-    if validar.valid_archivo(archivo):
-        print('(Solo se pueden añadir profesores con menos de 3 materias asignadas)')
-        profes = []
-        disp = menu_texto.lista_profesores_disponibles()
-        contador = 0
-        if disp != []:
-            while True:
-                try:
-                    if contador == 5:
-                        print('Ha llegado al limite de profesores')
-                        input('Presione Enter para salir')
-                        break
-                    verif = False
-                    print('\nIngresa el DNI del profesor que deseas añadir')
-                    p = validar.valid_formato_dni()
-                    for i in profes:
-                        if p in i:
-                            print('Ese profe ya se encuentra en esta materia, elija otro')
-                            verif = True
-                            break
-                    if not verif:
-                        for i in disp:
-                            if p in i:
-                                profes.append(i)
-                                contador += 1
-                                break
-                        else:
-                            print('Ingrese un profesor disponible')
-                        print('Desea ingresar un profesor nuevo?')
-                        if menu_texto.confirmacion_user() == 'n':
-                            break
-
-                except:
-                    print('Ingrese numeros')      
-
-            return profes
-    
-        else:
-            print('No se han encontrado profesores disponibles\nlibere a alguno y edite la materia')
-            return []
-    else:
-        menu_texto.error_archivo()
-
+    input('Presione Enter para volver al menú de gestión de materias')
 
 def modificar_prof_acargo(asignados):
     print('(Solo se pueden añadir profesores con menos de 3 materias asignadas)')
@@ -213,31 +207,55 @@ def elimiar_materia():
     if validar.valid_archivo(archivo):
         with open(archivo, "r", encoding="UTF-8") as j:
             datos = json.load(j)
-        
         print('='*20)
         for i in datos:
-            print(f'{(i['codigo']).ljust(20)}  {i['nombre'].rjust(20)}')
+            print(f'{(i["codigo"]).ljust(20)}  {i["nombre"].rjust(20)}')
         print('='*20)
         while True:
-                print('Ingrese el codigo de la materia que desea eliminar')
-                print('O ingrese 0 para salir')
-                cod = input('>>')
-                if cod == '0':
+            print('Ingrese el codigo de la materia que desea eliminar')
+            print('O ingrese 0 para salir')
+            cod = input('>>')
+            if cod == '0':
+                input('Presione Enter para volver al menú de gestión de materias')
+                return
+            materia_encontrada = None
+            for i in datos:
+                if cod == i['codigo']:
+                    materia_encontrada = i
+                    break
+            if materia_encontrada:
+                print('Esta es la materia que va a eliminar')
+                menu_texto.imprimir_dic(materia_encontrada)
+                print('Seguro que desea eliminarla?')
+                if menu_texto.confirmacion_user() == 's':
+                    registro.registrar_eliminado("Materia", materia_encontrada['nombre'],'--',materia_encontrada['codigo'])
+                    datos.remove(materia_encontrada)
+                    validar.cargar_archivo_json(archivo, datos)
+                    print('Materia eliminada correctamente.')
+                    input('Presione Enter para volver al menú de gestión de materias')
                     return
-                for i in datos:
-                    if cod == i['codigo']:
-                        print('Esta es la materia que va a eliminar')
-                        menu_texto.imprimir_dic(i)
-                        print('Seguro que desea eliminarla?')
-                        if menu_texto.confirmacion_user() == 's':
-                            registro.registrar_eliminado("Materia", i['nombre'],'--',i['codigo'])
-                            datos = list(filter(lambda x : x['codigo'] != cod, datos))
-                            validar.cargar_archivo_json(archivo,datos)
-                            return
-                        else:
-                            return
+                else:
+                    input('Presione Enter para volver al menú de gestión de materias')
+                    return
+            else:
+                print('No se encontró una materia con ese código. Intente nuevamente.')
     else:
         menu_texto.error_archivo()
+        input('Presione Enter para volver al menú de gestión de materias')
+
+def listar_materias():
+    if not validar.valid_archivo(archivo):
+        menu_texto.error_archivo()
+        input('Presione Enter para volver al menú de gestión de materias')
+        return
+    with open(archivo, "r", encoding="UTF-8") as j:
+        datos = json.load(j)
+    if not datos:
+        print('No hay materias registradas.')
+    else:
+        for mat in datos:
+            menu_texto.imprimir_dic(mat)
+    input('Presione Enter para volver al menú de gestión de materias')
 
 
 

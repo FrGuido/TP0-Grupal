@@ -80,140 +80,124 @@ def buscar_profesor(dni):
         for i in datos:
             if i['dni'] == dni:
                 return i
-        else:
-            print('No se encontro al profesor de ese DNI\n')
-            return None
+        print('No se encontro al profesor de ese DNI\n')
+        return None
+
+
+def obtener_dni_profesor():
+    #Obtiene y valida el DNI del profesor a buscar
+    while True:
+        print('Ingrese el dni del profesor a buscar')
+        dni = validar.valid_formato_dni()
+        prof = buscar_profesor(dni)
+        if prof is not None:
+            return dni, prof
+        
+        print('Desea intentarlo de nuevo?')
+        if menu_texto.confirmacion_user() == 'n':
+            return None, None
+
+
+def procesar_modificacion_profesor(datos, dni):
+    for i in datos:
+        if i['dni'] != dni:
+            continue
+        opcion = menu_texto.opcion_modificar_profesor()
+        while opcion != '0':
+            modificaciones = {
+                '1': lambda: modificar_campo(i, 'nombre', "~ Modificando nombre ~", "» Introduzca su nuevo nombre «", validar.valid_nombre),
+                '2': lambda: modificar_campo(i, 'apellido', "~ Modificando apellido ~", "» Introduzca su nuevo apellido «", validar.valid_nombre),
+                '3': lambda: modificar_campo(i, 'fecha_nacimiento', "~ Modificando fecha de nacimiento ~", "» Introduzca su nueva fecha «", validar.valid_fecha),
+                '4': lambda: modificar_campo(i, 'dni', "~ Modificando DNI ~", "» Introduzca su DNI «", validar.valid_dni_inprof),
+                '5': lambda: modificar_campo(i, 'mail', "~ Modificando Email ~", "» Introduzca su nuevo Email «", validar.valid_mail),
+                '6': lambda: modificar_campo(i, 'telefono', "~ Modificando telefono ~", "» Introduzca su nuevo Telefono «", validar.valid_telefono),
+                '7': lambda: modificar_campo(i, 'pasw', "~ Modificando Contraseña ~", "» Introduzca su nueva Contraseña «", validar.valid_pasw)
+            }
+            if opcion in modificaciones:
+                modificaciones[opcion]()
+            opcion = menu_texto.opcion_modificar_profesor()
+        registro.registrar_modificado("Profesor", i['nombre'],i['apellido'],i['dni'])
+        return
+
+
+def modificar_campo(profesor, campo, titulo, mensaje, validador):
+    #Modifica un campo específico del profesor
+    print("\n" + "=" * 50)
+    print(f'{titulo.center(50)}')
+    print(f"{mensaje.center(50)}")
+    print("-" * 50)
+    profesor[campo] = validador()
 
 
 def modificar_profesor():
-    if validar.valid_archivo(archivo):
-        while True:
-            print('Ingrese el dni del profesor a buscar')
-            dni = validar.valid_formato_dni()
-            prof = buscar_profesor(dni)
-            if prof == None:
-                print('Desea intentarlo de nuevo?')
-                vl = menu_texto.confirmacion_user()
-                if vl == 'n':
-                    return
-            else:
-                break
-            
-        print('Este es el profesor que esta editando\n')
-        menu_texto.imprimir_dic(prof)
-        input('Ingrese enter para continuar')            
-
-        with open(archivo,'r',encoding="UTF-8") as j:
-            datos = json.load(j)
-        for i in datos:
-            if i['dni'] == dni:
-                while True:
-                    opcion = menu_texto.opcion_modificar_profesor()
-
-                    if opcion == '0':
-                        break
-                    
-                    elif opcion == '1':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando nombre ~".center(50)}')
-                        print(f"{"» Introduzca su nuevo nombre «".center(50)}")
-                        print("-" * 50)
-                        i['nombre'] = validar.valid_nombre()
-
-                    elif opcion == '2':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando apellido ~".center(50)}')
-                        print(f"{"» Introduzca su nuevo apellido «".center(50)}")
-                        print("-" * 50)
-                        i['apellido'] = validar.valid_nombre()
-
-                    elif opcion == '3':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando fecha de nacimiento ~".center(50)}')
-                        print(f"{"» Introduzca su nueva fecha «".center(50)}")
-                        print("-" * 50)
-                        i['fecha_nacimiento'] = validar.valid_fecha()
-
-                    elif opcion == '4':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando DNI ~".center(50)}')
-                        print(f"{"» Introduzca su DNI «".center(50)}")
-                        print("-" * 50)
-                        i['dni'] = validar.valid_dni_inprof()
-
-                    elif opcion == '5':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando Email ~".center(50)}')
-                        print(f"{"» Introduzca su nuevo Email «".center(50)}")
-                        print("-" * 50)
-                        i['mail'] = validar.valid_mail()
-
-                    elif opcion == '6':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando telefono ~".center(50)}')
-                        print(f"{"» Introduzca su nuevo Telefono «".center(50)}")
-                        print("-" * 50)
-                        i['telefono'] = validar.valid_telefono()
-
-                    elif opcion == '7':
-                        print("\n" + "=" * 50)
-                        print(f'{"~ Modificando Contraseña ~".center(50)}')
-                        print(f"{"» Introduzca su nueva Contraseña «".center(50)}")
-                        print("-" * 50)
-                        i['pasw'] = validar.valid_pasw()
-
-                registro.registrar_modificado("Profesor", i['nombre'],i['apellido'],i['dni'])
-                break
-
-        validar.cargar_archivo_json(archivo,datos)
-    else:
+    if not validar.valid_archivo(archivo):
         menu_texto.error_archivo()
+        return
+        
+    dni, prof = obtener_dni_profesor()
+    if dni is None:
+        return
+        
+    print('Este es el profesor que esta editando\n')
+    menu_texto.imprimir_dic(prof)
+    input('Ingrese enter para continuar')            
 
+    with open(archivo,'r',encoding="UTF-8") as j:
+        datos = json.load(j)
+    
+    procesar_modificacion_profesor(datos, dni)
+    validar.cargar_archivo_json(archivo,datos)
     input('Volviendo al menu inicial, precione enter')
 
 
+def confirmar_y_eliminar_profesor(dni):
+    #Confirma y elimina el profesor si el usuario confirma
+    profesor = buscar_profesor(dni)
+    if profesor is None:
+        return False
+        
+    menu_texto.imprimir_dic(profesor)
+    print('\nSeguro que desea eliminar este elemento?\n')
+    
+    if menu_texto.confirmacion_user() != 's':
+        return False
+    
+    # Eliminar de profesores.json
+    with open(archivo,'r',encoding="UTF-8") as j:
+        datos = json.load(j)
+    
+    for i in datos:
+        if i['dni'] == dni:
+            registro.registrar_eliminado("Profesor", i['nombre'],i['apellido'],i['dni'])
+            datos = list(filter(lambda x: x['dni'] != dni, datos))
+            validar.cargar_archivo_json(archivo,datos)
+            
+            # Eliminar de cursos
+            with open(cursos.archivo,"r",encoding="UTF-8") as j:
+                datos_cursos = json.load(j)
+            
+            for curso in datos_cursos:
+                for materia in curso['materias']:
+                    materia['profesores'] = [prof for prof in materia['profesores'] if dni not in prof]
+            
+            print('='*50)
+            print('Se ha eliminado correctamente al profesor')
+            return True
+    
+    return False
+
+
 def eliminar_profesor():
-    if validar.valid_archivo(archivo) or validar.valid_archivo(cursos.archivo):
-        while True:
-            try:
-                print('Ingrese el DNI del profesor a eliminar')
-                dni = validar.valid_formato_dni()
-                menu_texto.imprimir_dic(buscar_profesor(dni))
-                print('\nSeguro que desea eliminar este elemento?\n')
-                seg = menu_texto.confirmacion_user()
-                if seg == 's':
-                    with open(archivo,'r',encoding="UTF-8") as j:
-                        datos = json.load(j)
-                    for i in datos:
-                        if i['dni'] == dni:
-                            registro.registrar_eliminado("Profesor", i['nombre'],i['apellido'],i['dni'])
-                            break
-                    datos = list(filter(lambda x: x['dni'] != dni, datos))
-                    
-                    validar.cargar_archivo_json(archivo,datos)
-
-                    with open(cursos.archivo,"r",encoding="UTF-8") as j:
-                        datos = json.load(j)
-                    
-                    for i in datos:
-                        for j in i['materias']:
-                            for g in j['profesores']:
-                                if dni in g:
-                                    j.remove(g)
-                    print('='*50)
-                    print('Se ha eliminado correctamente al profesor')
-                    return
-
-                else:
-                    break
-
-            except:
-                print('Ingrese numeros\n--------------')
-
-        input('Volviendo al menu inicial, presione Enter para continuar')
-        return
-    else:
+    if not (validar.valid_archivo(archivo) or validar.valid_archivo(cursos.archivo)):
         menu_texto.error_archivo()
+        return
+    try:
+        print('Ingrese el DNI del profesor a eliminar')
+        dni = validar.valid_formato_dni()
+        confirmar_y_eliminar_profesor(dni)
+    except:
+        print('Ingrese numeros\n--------------')
+    input('Volviendo al menu inicial, presione Enter para continuar')
 
 
 def listar_profesores():
@@ -233,16 +217,3 @@ def ver_materias_profe(profe):
         for j in i['profesores']:
             if profe['dni'] in j:
                 menu_texto.imprimir_dic(i)
-
-
-
-
-
-
-
-
-
-
-
-
-

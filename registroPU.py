@@ -36,7 +36,6 @@ def leer_modificacionesPU():
             for linea in archivo:
                 linea = linea.strip()
 
-
                 if linea.startswith("(") and linea.endswith(")"):
                     linea = linea[1:-1]
 

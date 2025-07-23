@@ -181,6 +181,10 @@ def menu_admin():
                 elif opcion == "3":
                     materias.modificar_materia()
 
+                #listar materias
+                elif opcion == "4":
+                    materias.listar_materias()
+        
         elif opcion == '5':
             registro.leer_modificaciones()
             input('Presione Enter para volver')
@@ -208,6 +212,6 @@ def menu_alumno(alumno):
         #Ver mis notas
         elif opcion == "1":
             alumnos.ver_notas_alumno(alumno)
-                
+
 
 

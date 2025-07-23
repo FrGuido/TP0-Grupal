@@ -1,40 +1,60 @@
 [
   {
-    "nombre": "Matemática",
-    "profesores": [
-      [44338568, "Franco"],
-      [33442233, "Martin"]
-    ],
-    "codigo": "MA101"
-  },
-  {
     "nombre": "Química",
     "profesores": [
-      [22331144, "Roncho"]
+      [
+        22331144,
+        "Roncho"
+      ]
     ],
     "codigo": "QU202"
   },
   {
     "nombre": "Física",
     "profesores": [
-      [99223311, "Franco"]
+      [
+        99223311,
+        "Franco"
+      ]
     ],
     "codigo": "FI303"
   },
   {
     "nombre": "Historia",
     "profesores": [
-      [33442233, "Martin"],
-      [22331144, "Roncho"]
+      [
+        33442233,
+        "Martin"
+      ],
+      [
+        22331144,
+        "Roncho"
+      ]
     ],
     "codigo": "HI404"
   },
   {
     "nombre": "Educación Física",
     "profesores": [
-      [60477777, "Messi"],
-      [22331144, "Roncho"]
+      [
+        60477777,
+        "Messi"
+      ],
+      [
+        22331144,
+        "Roncho"
+      ]
     ],
     "codigo": "GO477"
+  },
+  {
+    "nombre": "Cuantica",
+    "profesores": [
+      [
+        11111111,
+        "Martina"
+      ]
+    ],
+    "codigo": "CA101"
   }
 ]

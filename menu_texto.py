@@ -147,7 +147,7 @@ def opciones_alumno():
 
 def opciones_materias():
     while True:
-        opciones = 5
+        opciones = 4
         print()
         print("---------------------------")
         print("MENÚ PRINCIPAL > GESTION DE MATERIAS")
@@ -155,6 +155,7 @@ def opciones_materias():
         print("[1] Añadir Materia")
         print("[2] Eliminar Materia")
         print("[3] Modificar Materia")
+        print("[4] Listar Materias")
         print("---------------------------")
         print("[0] Volver al menú anterior")
         print("---------------------------")
@@ -424,14 +425,12 @@ def añadir_nota(alumno = None, profe = None):
             datos = json.load(j)
         with open(cursos.archivo, "r", encoding="UTF-8") as j:
             c = json.load(j)
-
         if datos:
             while True:
                 if alumno == None:
                     print('Ingrese el dni del alumno a cargo de la nota')
                     aludni = validar.valid_formato_dni()
                     alumno = alumnos.buscar_alumno(aludni)
-
                 for i in c:
                     for j in i['alumnos']:
                         if j['dni'] == alumno['dni']:
@@ -473,18 +472,20 @@ def añadir_nota(alumno = None, profe = None):
                     break
             instancia = alumnos.pedir_instancia()
             with open(alumnos.notas,"r",encoding="utf-8") as csv:
-                datos = csv.readline().strip()
-                while datos:
-                    if datos.split(',')[0].split(" - ")[1] == profdni and datos.split(',')[3].split(" - ")[1] == alumno['dni'] and datos.split(',')[5] == instancia:
+                existe = False
+                for datos in csv:
+                    datos = datos.strip()
+                    if not datos:
+                        continue
+                    if datos.split(',')[0].split(" - ")[1] == str(profdni) and datos.split(',')[3].split(" - ")[1] == str(alumno['dni']) and datos.split(',')[5] == instancia:
                         print('No se puede crear, ya que ya existe')
                         return
-                    datos = csv.readline().strip()
-                nota.append(curso)
-                nota.append(turno)
-                nota.append(f"{alumno['nombre']} - {alumno['dni']}")
-                nota.append(str(alumnos.pedir_nota()))
-                nota.append(instancia)
-                nota.append(f'{time.ctime(time.time())}')
+            nota.append(curso)
+            nota.append(turno)
+            nota.append(f"{alumno['nombre']} - {alumno['dni']}")
+            nota.append(str(alumnos.pedir_nota()))
+            nota.append(instancia)
+            nota.append(f'{time.ctime(time.time())}')
 
             with open(alumnos.notas,"a",encoding="utf-8") as csv:
                 csv.write(','.join(nota)+"\n")
@@ -542,8 +543,10 @@ def editar_nota(alumno = None, profe = None):
                 break
         instancia = alumnos.pedir_instancia()
         with open(alumnos.notas, "r", encoding="utf-8") as archivo:
-            arch = archivo.readline().strip()
-            while arch:
+            for arch in archivo:
+                arch = arch.strip()
+                if not arch:
+                    continue
                 campos = arch.split(",")
                 if campos[0].split(" - ")[1] == str(profdni) and campos[3].split(" - ")[1] == str(alumno['dni']) and campos[5] == instancia:
                     campos[4] = str(alumnos.pedir_nota())
@@ -552,8 +555,6 @@ def editar_nota(alumno = None, profe = None):
                     valid = True
                     registro.registrar_modificado("Nota", campos[0], campos[3],campos[4])
                 nueva_lista.append(arch + "\n")
-                arch = archivo.readline().strip()
-
             if not valid:
                 print('El alumno no tiene notas creadas de esas caracteristicas, cree una para poder editarla')
         with open(alumnos.notas, "w", encoding="utf-8") as c:

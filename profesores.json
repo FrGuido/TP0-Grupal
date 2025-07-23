@@ -25,23 +25,5 @@
     "mail": "wiwi@wi.com",
     "telefono": "1133445566",
     "pasw": "jorgERial_21"
-  },
-  {
-    "nombre": "Martin",
-    "apellido": "Jara",
-    "fecha_nacimiento": "14/6/2003",
-    "dni": 33442233,
-    "mail": "mailmail@gmail.com",
-    "telefono": "1144223322",
-    "pasw": "PepeJorge_21"
-  },
-  {
-    "nombre": "Messi",
-    "apellido": "Messiano",
-    "fecha_nacimiento": "24/06/2003",
-    "dni": 60477777,
-    "mail": "river@gmail.com",
-    "telefono": "1155667700",
-    "pasw": "goku123"
   }
 ]
